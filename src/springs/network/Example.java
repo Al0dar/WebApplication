@@ -40,8 +40,7 @@ public class Example {
 
     private static void handleStatic(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange);
-        String rootPath = "C:/Dev/java/WebApplication";
-        String fileName = rootPath + exchange.getRequestURI().getPath();
+        String fileName = Helper.RootPath() + exchange.getRequestURI().getPath();
         r.respondWithFile(fileName);
     }
 
@@ -49,7 +48,7 @@ public class Example {
         Responder r = WebServer.getResponder(exchange);
         String url = exchange.getRequestURI().getPath();
         System.out.println("handleSaveImage: " + url);
-        String rootPath = "C:/Dev/java/WebApplication/static/images/saved/";
+        String rootPath = Helper.RootPath() + "/static/images/saved/";
         String prefix = "/saveimage/";
         String fileName = rootPath + url.substring(prefix.length());
         r.saveToFile(fileName);
