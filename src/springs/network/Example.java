@@ -30,8 +30,10 @@ public class Example {
         r.out("<body>");
         r.outln("<b>Home</b>");
         r.outln("<img src='/static/images/home.jpg' width=100px/>");
-        r.outln("Hello :)");
-        r.outln("<a href='/info'>information</a><br/>");
+        r.outln("");
+        r.outln("Hello World");
+        r.outln("");
+        r.outln("<a href='/info'>information</a>");
         r.outln("<a href='/static/test/index.html'>static test</a>");
         r.out("</body>");
         r.out("</html>");
