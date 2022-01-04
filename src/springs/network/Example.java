@@ -42,21 +42,19 @@ public class Example {
 
     private static void handleFavIcon(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleFavIcon");
-        String fileName = Helper.RootPath() + "/static/images/favicon.png";
-        r.respondWithFile(fileName);
+        r.respondWithFile(Helper.RootPath() + "/static/images/favicon.png");
     }
 
     private static void handleStatic(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleStatic");
-        String fileName = Helper.RootPath() + r.getUrl();
-        r.respondWithFile(fileName);
+        r.respondWithFile(Helper.RootPath() + r.getUrl());
     }
 
     private static void handleSaveImage(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleSaveImage");
         String rootPath = Helper.RootPath() + "/static/images/saved/";
-        String prefix = "/saveimage/";
-        String fileName = rootPath + r.getUrl().substring(prefix.length());
+        String prefixToRemove = "/saveimage/";
+        String fileName = rootPath + r.getUrl().substring(prefixToRemove.length());
         r.saveToFile(fileName);
     }
 
