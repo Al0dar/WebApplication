@@ -1,11 +1,13 @@
 package springs.network;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import springs.network.web.Responder;
 import springs.network.web.WebServer;
 
 import java.io.IOException;
 import java.time.*;
+import java.util.List;
 
 public class Example {
 
@@ -15,12 +17,14 @@ public class Example {
         WebServer.create(8500);
         WebServer.listen("/", Example::handleHome);
         WebServer.listen("/static/", Example::handleStatic);
+        WebServer.listen("/saveimage/", Example::handleSaveImage);
         WebServer.listen("/info", Example::handleInfo);
         WebServer.start();
     }
 
     private static void handleHome(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange);
+        System.out.println("handleHome: " + exchange.getRequestURI().getPath());
         r.startHtml();
         r.out("<html>");
         r.out("<body>");
@@ -39,6 +43,16 @@ public class Example {
         String rootPath = "C:/Dev/java/WebApplication";
         String fileName = rootPath + exchange.getRequestURI().getPath();
         r.respondWithFile(fileName);
+    }
+
+    private static void handleSaveImage(HttpExchange exchange) throws IOException {
+        Responder r = WebServer.getResponder(exchange);
+        String url = exchange.getRequestURI().getPath();
+        System.out.println("handleSaveImage: " + url);
+        String rootPath = "C:/Dev/java/WebApplication/static/images/saved/";
+        String prefix = "/saveimage/";
+        String fileName = rootPath + url.substring(prefix.length());
+        r.saveToFile(fileName);
     }
 
     private static void handleInfo(HttpExchange exchange) throws IOException {

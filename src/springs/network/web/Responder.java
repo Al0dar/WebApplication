@@ -4,17 +4,17 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import springs.network.web.session.WebSession;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
 public class Responder {
 
     private HttpExchange exchange;
+    private InputStream requestBody;
     private OutputStream responseBody;
     private RequestCookies requestCookies;
 
@@ -25,6 +25,7 @@ public class Responder {
 
     public Responder(HttpExchange exchange) {
         this.exchange = exchange;
+        requestBody = exchange.getRequestBody();
         responseBody = exchange.getResponseBody();
     }
 
@@ -68,6 +69,23 @@ public class Responder {
 
         // close the response body
         responseBody.close();
+
+    }
+
+    public void saveToFile(String fileName) throws IOException {
+
+        try {
+            File file = new File(fileName);
+            file.createNewFile();
+            FileOutputStream outputStream = new FileOutputStream(file);
+            byte[] buffer = new byte[16 * 1024];
+            int bytesRead;
+            while ((bytesRead = requestBody.read(buffer)) != -1)
+                outputStream.write(buffer, 0, bytesRead);
+            outputStream.close();
+        } catch (Exception ex) {
+            System.out.println("?:" + ex.toString());
+        }
 
     }
 
