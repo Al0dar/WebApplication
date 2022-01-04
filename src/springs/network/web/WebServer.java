@@ -1,20 +1,10 @@
 package springs.network.web;
 
 import com.sun.net.httpserver.*;
-import springs.network.web.session.WebSessions;
 
-import javax.net.ssl.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
-import java.nio.file.Files;
-import java.security.KeyStore;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+
+import springs.network.web.session.WebSessions;
 
 public class WebServer {
 

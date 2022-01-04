@@ -1,13 +1,12 @@
 package springs.network;
 
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
-import springs.network.web.Responder;
-import springs.network.web.WebServer;
 
 import java.io.IOException;
 import java.time.*;
-import java.util.List;
+
+import springs.network.web.Responder;
+import springs.network.web.WebServer;
 
 public class Example {
 

@@ -2,14 +2,14 @@ package springs.network.web;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
-import springs.network.web.session.WebSession;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+
+import springs.network.web.session.WebSession;
 
 public class Responder {
 
