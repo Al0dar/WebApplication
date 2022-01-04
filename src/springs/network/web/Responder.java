@@ -29,6 +29,10 @@ public class Responder {
         responseBody = exchange.getResponseBody();
     }
 
+    public String getUrl() {
+        return exchange.getRequestURI().getPath();
+    }
+
     public void startHtml() throws IOException {
         resolveSession();
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
@@ -65,6 +69,7 @@ public class Responder {
             File file = new File(fileName);
             Files.copy(file.toPath(), responseBody);
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
         // close the response body
@@ -72,7 +77,7 @@ public class Responder {
 
     }
 
-    public void saveToFile(String fileName) throws IOException {
+    public void saveToFile(String fileName) {
 
         try {
             File file = new File(fileName);
@@ -116,7 +121,7 @@ public class Responder {
     public void out_HelperRequestHeaders() throws IOException {
         Headers h = exchange.getRequestHeaders();
         for (String key : h.keySet()) {
-            List values = h.get(key);
+            List<String> values = h.get(key);
             String s = key + " = " + values.toString();
             outln(s);
         }

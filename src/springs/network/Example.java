@@ -16,6 +16,7 @@ public class Example {
     public static void start() throws Exception {
         WebServer.create(8500);
         WebServer.listen("/", Example::handleHome);
+        WebServer.listen("/favicon.ico", Example::handleFavIcon);
         WebServer.listen("/static/", Example::handleStatic);
         WebServer.listen("/saveimage/", Example::handleSaveImage);
         WebServer.listen("/info", Example::handleInfo);
@@ -23,8 +24,7 @@ public class Example {
     }
 
     private static void handleHome(HttpExchange exchange) throws IOException {
-        Responder r = WebServer.getResponder(exchange);
-        System.out.println("handleHome: " + exchange.getRequestURI().getPath());
+        Responder r = WebServer.getResponder(exchange, "Example.handleHome");
         r.startHtml();
         r.out("<html>");
         r.out("<body>");
@@ -40,24 +40,28 @@ public class Example {
         r.end();
     }
 
+    private static void handleFavIcon(HttpExchange exchange) throws IOException {
+        Responder r = WebServer.getResponder(exchange, "Example.handleFavIcon");
+        String fileName = Helper.RootPath() + "/static/images/favicon.png";
+        r.respondWithFile(fileName);
+    }
+
     private static void handleStatic(HttpExchange exchange) throws IOException {
-        Responder r = WebServer.getResponder(exchange);
-        String fileName = Helper.RootPath() + exchange.getRequestURI().getPath();
+        Responder r = WebServer.getResponder(exchange, "Example.handleStatic");
+        String fileName = Helper.RootPath() + r.getUrl();
         r.respondWithFile(fileName);
     }
 
     private static void handleSaveImage(HttpExchange exchange) throws IOException {
-        Responder r = WebServer.getResponder(exchange);
-        String url = exchange.getRequestURI().getPath();
-        System.out.println("handleSaveImage: " + url);
+        Responder r = WebServer.getResponder(exchange, "Example.handleSaveImage");
         String rootPath = Helper.RootPath() + "/static/images/saved/";
         String prefix = "/saveimage/";
-        String fileName = rootPath + url.substring(prefix.length());
+        String fileName = rootPath + r.getUrl().substring(prefix.length());
         r.saveToFile(fileName);
     }
 
     private static void handleInfo(HttpExchange exchange) throws IOException {
-        Responder r = WebServer.getResponder(exchange);
+        Responder r = WebServer.getResponder(exchange, "Example.handleInfo");
         r.startHtml();
         r.out("<html>");
         r.out("<body>");

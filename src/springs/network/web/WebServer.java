@@ -46,7 +46,13 @@ public class WebServer {
         System.out.println("Web server started");
     }
 
-    public static Responder getResponder(HttpExchange exchange) throws IOException {
+    public static Responder getResponder(HttpExchange exchange, String handlerName) {
+        Responder rv = getResponder(exchange);
+        System.out.println(handlerName + " responding to " + rv.getUrl());
+        return rv;
+    }
+
+    public static Responder getResponder(HttpExchange exchange) {
         return new Responder(exchange);
     }
 
