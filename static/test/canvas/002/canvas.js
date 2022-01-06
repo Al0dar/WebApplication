@@ -1,3 +1,68 @@
+function setColour(id, v) {
+    pen.colour = v;
+    updateStyles(id, '#colours1 > button', 'button', 'button_selected');
+}
+
+function setLineWidth(id, v) {
+    pen.width = v;
+    updateStyles(id, '#lineWidths1 > button', 'button', 'button_selected');
+}
+
+function setPressure(id, v) {
+    pen.alpha = v;
+    updateStyles(id, '#pressures1 > button', 'button', 'button_selected');
+}
+
+function clickOption(range) {
+    $(range).map(function() {
+        this.click();
+    });
+}
+
+function updateStyles(selectedId, range, normalClass, selectedClass) {
+    $(range).map(function() {
+        if (this.id === selectedId) {
+            this.classList.remove(normalClass);
+            this.classList.add(selectedClass);
+        } else {
+            this.classList.add(normalClass);
+            this.classList.remove(selectedClass);
+        }
+    });
+}
+
+function onPageLoading() {
+}
+
+function onPageLoaded() {
+
+    var canvas = document.getElementById("canvas1");
+    var ctx = canvas.getContext("2d");
+
+    pen = new CanvasLinePen(ctx);
+    pen.colour = '#000000';
+    pen.width = 2;
+    pen.alpha = '99';
+    canvas.addEventListener('mousedown', e => {
+        pen.start(e.offsetX, e.offsetY);
+    });
+    canvas.addEventListener('mousemove', e => {
+        pen.drawTo(e.offsetX, e.offsetY);
+    });
+    canvas.addEventListener('mouseup', e => {
+        pen.stop();
+    });
+
+    clickOption('#colours1 > #o1');
+    clickOption('#lineWidths1 > #o3');
+    clickOption('#pressures1 > #o2');
+
+    // draw image1 onto the canvas
+    var img = document.getElementById("image1");
+    ctx.drawImage(img, 0, 0);
+
+}
+
 function doClear() {
     var canvas = document.getElementById("canvas1");
     var ctx = canvas.getContext("2d");
@@ -22,46 +87,5 @@ function doTiling() {
         ctx.fillStyle = ptrn;
         ctx.fillRect(0, 0, 500, 500);
     }
-}
-
-function setColour(v) {
-    pen.colour = v;
-}
-
-function setPressure(v) {
-    pen.alpha = v;
-}
-
-function setLineWidth(v) {
-    pen.width = v;
-}
-
-function onPageLoading() {
-    doClear();
-}
-
-function onPageLoaded() {
-
-    var canvas = document.getElementById("canvas1");
-    var ctx = canvas.getContext("2d");
-
-    pen = new CanvasLinePen(ctx);
-    pen.colour = '#000000';
-    pen.width = 2;
-    pen.alpha = '99';
-    canvas.addEventListener('mousedown', e => {
-        pen.start(e.offsetX, e.offsetY);
-    });
-    canvas.addEventListener('mousemove', e => {
-        pen.drawTo(e.offsetX, e.offsetY);
-    });
-    canvas.addEventListener('mouseup', e => {
-        pen.stop();
-    });
-
-    // draw image1 onto the canvas
-    var img = document.getElementById("image1");
-    ctx.drawImage(img, 0, 0);
-
 }
 
