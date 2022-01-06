@@ -4,8 +4,9 @@ class CanvasLinePen {
         this.ctx = ctx;
         this.x = 0;
         this.y = 0;
-        this.strokeStyle = 'green';
-        this.lineWidth = 3;
+        this.colour = '#00ff00';
+        this.alpha = 'ff';
+        this.width = 3;
         this.active = false;
     }
 
@@ -18,8 +19,8 @@ class CanvasLinePen {
     drawTo(toX, toY) {
         if (this.active === true) {
             this.ctx.beginPath();
-            this.ctx.strokeStyle = this.strokeStyle;
-            this.ctx.lineWidth = this.lineWidth;
+            this.ctx.strokeStyle = this.colour + this.alpha;
+            this.ctx.lineWidth = this.width;
             this.ctx.moveTo(this.x, this.y);
             this.ctx.lineTo(toX, toY);
             this.ctx.stroke();

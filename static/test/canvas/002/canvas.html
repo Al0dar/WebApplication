@@ -7,13 +7,37 @@
         <script src="canvas.js"></script>
     </head>
     <body>
-        <h1>canvas 2</h1><br/>
-        You can draw on this canvas.<br/>
+        You can draw on this canvas, and save your beautiful artwork.<br/>
         <canvas id="canvas1" width="500" height="500" style="border:1px solid #808090;">
             Your browser does not support the canvas element.
-        </canvas><br/>
+        </canvas><br/><br/>
+        pen colour
+        <button type="button" onclick="setColour('#000000')">black</button>
+        <button type="button" onclick="setColour('#808080')">grey</button>
+        <button type="button" onclick="setColour('#ffffff')">white</button>
+        <button type="button" onclick="setColour('#ff0000')">red</button>
+        <button type="button" onclick="setColour('#00ff00')">green</button>
+        <button type="button" onclick="setColour('#0000ff')">blue</button>
+        <button type="button" onclick="setColour('#ffff00')">yellow</button>
+        <button type="button" onclick="setColour('#ff00ff')">magenta</button>
+        <button type="button" onclick="setColour('#00ffff')">cyan</button>
+        <br/><br/>
+        pen size
+        <button type="button" onclick="setLineWidth(1)">1</button>
+        <button type="button" onclick="setLineWidth(2)">2</button>
+        <button type="button" onclick="setLineWidth(3)">3</button>
+        <button type="button" onclick="setLineWidth(5)">5</button>
+        <button type="button" onclick="setLineWidth(10)">10</button>
+        <br/><br/>
+        pen pressure (transparency)
+        <button type="button" onclick="setPressure('ff')">full</button>
+        <button type="button" onclick="setPressure('80')">half</button>
+        <button type="button" onclick="setPressure('40')">quarter</button>
+        <br/><br/>
         <button type="button" onclick="doClear()">Clear</button>
+        <button type="button" onclick="doTiling()">Test Tiling</button>
         <button type="button" onclick="doSave()">Save</button>
+
         <h2>
             <a href="/static/test/index.html">index</a>
         </h2>
