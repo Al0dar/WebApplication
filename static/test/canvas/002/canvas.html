@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>canvas 2</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/static/js/global.js"></script>
+        <script src="canvas.js"></script>
+    </head>
+    <body>
+        <h1>canvas 2</h1><br/>
+        You can draw on this canvas.<br/>
+        <canvas id="canvas1" width="500" height="500" style="border:1px solid #808090;">
+            Your browser does not support the canvas element.
+        </canvas><br/>
+        <button type="button" onclick="doClear()">Clear</button>
+        <button type="button" onclick="doSave()">Save</button>
+        <h2>
+            <a href="/static/test/index.html">index</a>
+        </h2>
+        <img id="image1" src='/static/images/saved/canvas-2-output.png' style="visibility: hidden;" />
+        <script>
+            window.onload = onPageLoaded;
+            onPageLoading();
+        </script>
+    </body>
+</html>

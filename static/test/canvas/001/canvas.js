@@ -1,5 +1,3 @@
-// canvas1.js
-
 function onPageLoading() {
 
     var canvas = document.getElementById("canvas1");
