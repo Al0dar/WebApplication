@@ -1,3 +1,20 @@
+function onPageLoaded() {
+
+    imaginator1 = new Imaginator("canvas1", 'image1.png', 'image/png', 'image1');
+    imaginator1.load();
+
+    imaginator2 = new Imaginator("canvas2", 'image2.png', 'image/png', 'image2');
+    imaginator2.load();
+
+    pen1 = imaginator1.pen;
+    imaginator2.pen.mimick = pen1;
+
+    clickOption('#colours1 > #o1');
+    clickOption('#lineWidths1 > #o3');
+    clickOption('#pressures1 > #o2');
+
+}
+
 function setPenColour(id, v) {
     pen1.colour = v;
     updateStyles(id, '#colours1 > button', 'button', 'button_selected');
@@ -31,21 +48,5 @@ function updateStyles(selectedId, range, normalClass, selectedClass) {
     });
 }
 
-function onPageLoading() {}
 
-function onPageLoaded() {
-
-    imaginator1 = new Imaginator("canvas1", 'image1.png', 'image/png', 'image1');
-    imaginator2 = new Imaginator("canvas2", 'image2.png', 'image/png', 'image2');
-    imaginator1.load();
-    imaginator2.load();
-
-    pen1 = imaginator1.pen;
-    imaginator2.pen.mimick = pen1;
-
-    clickOption('#colours1 > #o1');
-    clickOption('#lineWidths1 > #o3');
-    clickOption('#pressures1 > #o2');
-
-}
 
