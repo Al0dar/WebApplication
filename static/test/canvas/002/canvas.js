@@ -1,18 +1,15 @@
 function setColour(id, v) {
     imaginator1.pen.colour = v;
-    imaginator2.pen.colour = v;
     updateStyles(id, '#colours1 > button', 'button', 'button_selected');
 }
 
 function setLineWidth(id, v) {
     imaginator1.pen.width = v;
-    imaginator2.pen.width = v;
     updateStyles(id, '#lineWidths1 > button', 'button', 'button_selected');
 }
 
 function setPressure(id, v) {
     imaginator1.pen.alpha = v;
-    imaginator2.pen.alpha = v;
     updateStyles(id, '#pressures1 > button', 'button', 'button_selected');
 }
 
@@ -47,8 +44,8 @@ function onPageLoaded() {
 
     imaginator2.pen.mimick = imaginator1.pen;
 
-    imaginator1.loadFromImage();
-    imaginator2.loadFromImage();
+    imaginator1.load();
+    imaginator2.load();
 
 }
 
@@ -56,9 +53,16 @@ function doClear(i) {
     i.clear();
 }
 
+function doLoad(i) {
+    i.load();
+}
+
 function doSave(i) {
-    i.post();
-    alert("image saved");
+    i.save();
+}
+
+function doCopyFrom(di, si) {
+    di.copyFrom(si);
 }
 
 function doPaste() {

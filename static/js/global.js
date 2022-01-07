@@ -16,6 +16,22 @@ class CanvasLinePen {
         this.active = true;
     }
 
+    getStrokeStyle() {
+        if (this.mimick) {
+            return this.mimick.colour + this.mimick.alpha;
+        } else {
+            return this.colour + this.alpha;
+        }
+    }
+
+    getLineWidth() {
+        if (this.mimick) {
+            return this.mimick.width;
+        } else {
+            return this.width;
+        }
+    }
+
     drawTo(toX, toY) {
         if (this.active === true) {
 
@@ -23,13 +39,8 @@ class CanvasLinePen {
             this.ctx.beginPath();
 
             // set the context's drawing pen properties
-            if (this.mimick) {
-                this.ctx.strokeStyle = this.mimick.colour + this.mimick.alpha;
-                this.ctx.lineWidth = this.mimick.width;
-            } else {
-                this.ctx.strokeStyle = this.colour + this.alpha;
-                this.ctx.lineWidth = this.width;
-            }
+            this.ctx.strokeStyle = this.getStrokeStyle();
+            this.ctx.lineWidth = this.getLineWidth();
 
             // draw a line
             this.ctx.moveTo(this.x, this.y);
@@ -59,7 +70,6 @@ class Imaginator {
         this.filename = filename;
         this.blobType = blobType;
         this.ctx = this.canvas.getContext("2d");
-        this.image = document.getElementById(imageId);
         this.pen = new CanvasLinePen(this.ctx);
         this.pen.colour = '#000000';
         this.pen.width = 2;
@@ -75,16 +85,30 @@ class Imaginator {
         });
     }
 
-    loadFromImage() {
-        this.ctx.drawImage(this.image, 0, 0);
-    }
-
     clear() {
-        this.ctx.fillStyle = this.pen.colour + this.pen.alpha;
+        this.ctx.fillStyle = this.pen.getStrokeStyle();
         this.ctx.fillRect(0, 0, 500, 500);
     }
 
-    post(blobType) {
+    copyFrom(si) {
+        var img = si.ctx.getImageData(0, 0, si.canvas.width, si.canvas.height);
+        this.canvas.width = img.width;
+        this.canvas.height = img.height;
+        this.ctx.putImageData(img, 0, 0);
+    }
+
+    load() {
+        var img = new Image();
+        img.src = '/static/images/saved/' + this.filename;
+        var me = this;
+        img.onload = function() {
+            me.canvas.width = img.width;
+            me.canvas.height = img.height;
+            me.ctx.drawImage(img, 0, 0);
+        }
+    }
+
+    save(blobType) {
         let url = "/saveimage/" + this.filename;
         this.canvas.toBlob(
             //:

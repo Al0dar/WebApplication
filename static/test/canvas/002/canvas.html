@@ -18,16 +18,26 @@
     </head>
     <body>
         You can draw on these canvases, and save your beautiful artwork.<br/>
-        <canvas id="canvas1" width="300" height="300" style="border:1px solid #808090;">
-            Your browser does not support the canvas element.
-        </canvas>
-        <button type="button" onclick="doClear(imaginator1)">Clear</button>
-        <button type="button" onclick="doSave(imaginator1)">Save</button>
-        <canvas id="canvas2" width="300" height="300" style="border:1px solid #808090;">
-            Your browser does not support the canvas element.
-        </canvas>
-        <button type="button" onclick="doClear(imaginator2)">Clear</button>
-        <button type="button" onclick="doSave(imaginator2)">Save</button>
+        <div style="display: inline-block;">
+            <canvas id="canvas1" width="300" height="300" style="border:1px solid #808090;">
+                Your browser does not support the canvas element.
+            </canvas>
+            </br>
+            <button type="button" onclick="doClear(imaginator1)">Clear</button>
+            <button type="button" onclick="doLoad(imaginator1)">Load</button>
+            <button type="button" onclick="doSave(imaginator1)">Save</button>
+            <button type="button" onclick="doCopyFrom(imaginator1, imaginator2)">Copy Left</button>
+        </div>
+        <div style="display: inline-block;">
+            <canvas id="canvas2" width="300" height="300" style="border:1px solid #808090;">
+                Your browser does not support the canvas element.
+            </canvas>
+            </br>
+            <button type="button" onclick="doClear(imaginator2)">Clear</button>
+            <button type="button" onclick="doLoad(imaginator2)">Load</button>
+            <button type="button" onclick="doSave(imaginator2)">Save</button>
+            <button type="button" onclick="doCopyFrom(imaginator2, imaginator1)">Copy Right</button>
+        </div>
         <br/><br/>
         <div id="colours1">
             pen colour
@@ -62,8 +72,6 @@
         <h2>
             <a href="/static/test/index.html">index</a>
         </h2>
-        <img id="image1" src='/static/images/saved/image1.png' style="visibility: hidden;" />
-        <img id="image2" src='/static/images/saved/image2.png' style="visibility: hidden;" />
         <script>
             window.onload = onPageLoaded;
             onPageLoading();
