@@ -17,43 +17,36 @@ class CanvasLinePen {
     }
 
     getStrokeStyle() {
-        if (this.mimick) {
+        if (this.mimick)
             return this.mimick.colour + this.mimick.alpha;
-        } else {
+        else
             return this.colour + this.alpha;
-        }
     }
 
     getLineWidth() {
-        if (this.mimick) {
+        if (this.mimick)
             return this.mimick.width;
-        } else {
+        else
             return this.width;
-        }
     }
 
     drawTo(toX, toY) {
         if (this.active === true) {
-
+            var c = this.ctx;
             // begin path
-            this.ctx.beginPath();
-
-            // set the context's drawing pen properties
-            this.ctx.strokeStyle = this.getStrokeStyle();
-            this.ctx.lineWidth = this.getLineWidth();
-
-            // draw a line
-            this.ctx.moveTo(this.x, this.y);
-            this.ctx.lineTo(toX, toY);
-            this.ctx.stroke();
-
+            c.beginPath();
+            // set drawing properties
+            c.strokeStyle = this.getStrokeStyle();
+            c.lineWidth = this.getLineWidth();
+            // draw line
+            c.moveTo(this.x, this.y);
+            c.lineTo(toX, toY);
+            c.stroke();
             // end path
-            this.ctx.closePath();
-
-            // change focal (start) point to destination point
+            c.closePath();
+            // change focal point to destination point
             this.x = toX;
             this.y = toY;
-
         }
     }
 
@@ -87,7 +80,7 @@ class Imaginator {
 
     clear() {
         this.ctx.fillStyle = this.pen.getStrokeStyle();
-        this.ctx.fillRect(0, 0, 500, 500);
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     copyFrom(si) {
@@ -105,6 +98,17 @@ class Imaginator {
             me.canvas.width = img.width;
             me.canvas.height = img.height;
             me.ctx.drawImage(img, 0, 0);
+        }
+    }
+
+    loadTile() {
+        var img = new Image();
+        img.src = '/static/images/saved/' + this.filename;
+        var me = this;
+        img.onload = function() {
+            var ptrn = me.ctx.createPattern(img, 'repeat');
+            me.ctx.fillStyle = ptrn;
+            me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.width);
         }
     }
 

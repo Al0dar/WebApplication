@@ -19,55 +19,54 @@
     <body>
         You can draw on these canvases, and save your beautiful artwork.<br/>
         <div style="display: inline-block;">
-            <canvas id="canvas1" width="300" height="300" style="border:1px solid #808090;">
+            <canvas id="canvas1" width="10" height="10" style="border:1px solid #808090;">
                 Your browser does not support the canvas element.
             </canvas>
             </br>
-            <button type="button" onclick="doClear(imaginator1)">Clear</button>
-            <button type="button" onclick="doLoad(imaginator1)">Load</button>
-            <button type="button" onclick="doSave(imaginator1)">Save</button>
-            <button type="button" onclick="doCopyFrom(imaginator1, imaginator2)">Copy Left</button>
+            <button type="button" onclick="imaginator1.clear()">Clear</button>
+            <button type="button" onclick="imaginator1.load()">Load</button>
+            <button type="button" onclick="imaginator1.save()">Save</button>
+            <button type="button" onclick="imaginator1.copyFrom(imaginator2)">Copy Left</button>
         </div>
         <div style="display: inline-block;">
-            <canvas id="canvas2" width="300" height="300" style="border:1px solid #808090;">
+            <canvas id="canvas2" width="10" height="10" style="border:1px solid #808090;">
                 Your browser does not support the canvas element.
             </canvas>
             </br>
-            <button type="button" onclick="doClear(imaginator2)">Clear</button>
-            <button type="button" onclick="doLoad(imaginator2)">Load</button>
-            <button type="button" onclick="doSave(imaginator2)">Save</button>
-            <button type="button" onclick="doCopyFrom(imaginator2, imaginator1)">Copy Right</button>
+            <button type="button" onclick="imaginator2.clear()">Clear</button>
+            <button type="button" onclick="imaginator2.load()">Load</button>
+            <button type="button" onclick="imaginator2.save()">Save</button>
+            <button type="button" onclick="imaginator2.copyFrom(imaginator1)">Copy Right</button>
         </div>
         <br/><br/>
         <div id="colours1">
             pen colour
-            <button id="o1" type="button" onclick="setColour('o1', '#000000')">black</button>
-            <button id="o2" type="button" onclick="setColour('o2', '#808080')">grey</button>
-            <button id="o3" type="button" onclick="setColour('o3', '#ffffff')">white</button>
-            <button id="o4" type="button" onclick="setColour('o4', '#ff0000')">red</button>
-            <button id="o5" type="button" onclick="setColour('o5', '#00ff00')">green</button>
-            <button id="o6" type="button" onclick="setColour('o6', '#0000ff')">blue</button>
-            <button id="o7" type="button" onclick="setColour('o7', '#ffff00')">yellow</button>
-            <button id="o8" type="button" onclick="setColour('o8', '#ff00ff')">magenta</button>
-            <button id="o9" type="button" onclick="setColour('o9', '#00ffff')">cyan</button>
+            <button id="o1" type="button" onclick="setPenColour('o1', '#000000')">black</button>
+            <button id="o2" type="button" onclick="setPenColour('o2', '#808080')">grey</button>
+            <button id="o3" type="button" onclick="setPenColour('o3', '#ffffff')">white</button>
+            <button id="o4" type="button" onclick="setPenColour('o4', '#ff0000')">red</button>
+            <button id="o5" type="button" onclick="setPenColour('o5', '#00ff00')">green</button>
+            <button id="o6" type="button" onclick="setPenColour('o6', '#0000ff')">blue</button>
+            <button id="o7" type="button" onclick="setPenColour('o7', '#ffff00')">yellow</button>
+            <button id="o8" type="button" onclick="setPenColour('o8', '#ff00ff')">magenta</button>
+            <button id="o9" type="button" onclick="setPenColour('o9', '#00ffff')">cyan</button>
         </div><br/>
         <div id="lineWidths1">
             pen size
-            <button id="o1" type="button" onclick="setLineWidth('o1', 1)">1</button>
-            <button id="o2" type="button" onclick="setLineWidth('o2', 2)">2</button>
-            <button id="o3" type="button" onclick="setLineWidth('o3', 3)">3</button>
-            <button id="o4" type="button" onclick="setLineWidth('o4', 5)">5</button>
-            <button id="o5" type="button" onclick="setLineWidth('o5', 10)">10</button>
+            <button id="o1" type="button" onclick="setPenWidth('o1', 1)">1</button>
+            <button id="o2" type="button" onclick="setPenWidth('o2', 2)">2</button>
+            <button id="o3" type="button" onclick="setPenWidth('o3', 3)">3</button>
+            <button id="o4" type="button" onclick="setPenWidth('o4', 5)">5</button>
+            <button id="o5" type="button" onclick="setPenWidth('o5', 10)">10</button>
         </div><br/>
         <div id="pressures1">
             pen pressure (transparency)
-            <button id="o1" type="button" onclick="setPressure('o1', 'ff')">full</button>
-            <button id="o2" type="button" onclick="setPressure('o2', '80')">half</button>
-            <button id="o3" type="button" onclick="setPressure('o3', '40')">quarter</button>
+            <button id="o1" type="button" onclick="setPenPressure('o1', 'ff')">full</button>
+            <button id="o2" type="button" onclick="setPenPressure('o2', '80')">half</button>
+            <button id="o3" type="button" onclick="setPenPressure('o3', '40')">quarter</button>
         </div><br/>
         <div>
-            <button type="button" onclick="doTiling()">Test Tiling</button>
-            <button type="button" onclick="doPaste()">Paste</button>
+            <button type="button" onclick="imaginator1.loadTile()">Test Tiling</button>
         </div>
         <h2>
             <a href="/static/test/index.html">index</a>
