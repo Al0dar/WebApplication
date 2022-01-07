@@ -1,15 +1,18 @@
 function setColour(id, v) {
-    pen.colour = v;
+    imaginator1.pen.colour = v;
+    imaginator2.pen.colour = v;
     updateStyles(id, '#colours1 > button', 'button', 'button_selected');
 }
 
 function setLineWidth(id, v) {
-    pen.width = v;
+    imaginator1.pen.width = v;
+    imaginator2.pen.width = v;
     updateStyles(id, '#lineWidths1 > button', 'button', 'button_selected');
 }
 
 function setPressure(id, v) {
-    pen.alpha = v;
+    imaginator1.pen.alpha = v;
+    imaginator2.pen.alpha = v;
     updateStyles(id, '#pressures1 > button', 'button', 'button_selected');
 }
 
@@ -31,61 +34,44 @@ function updateStyles(selectedId, range, normalClass, selectedClass) {
     });
 }
 
-function onPageLoading() {
-}
+function onPageLoading() {}
 
 function onPageLoaded() {
 
-    var canvas = document.getElementById("canvas1");
-    var ctx = canvas.getContext("2d");
-
-    pen = new CanvasLinePen(ctx);
-    pen.colour = '#000000';
-    pen.width = 2;
-    pen.alpha = '99';
-    canvas.addEventListener('mousedown', e => {
-        pen.start(e.offsetX, e.offsetY);
-    });
-    canvas.addEventListener('mousemove', e => {
-        pen.drawTo(e.offsetX, e.offsetY);
-    });
-    canvas.addEventListener('mouseup', e => {
-        pen.stop();
-    });
+    imaginator1 = new Imaginator("canvas1", 'image1.png', 'image/png', 'image1');
+    imaginator2 = new Imaginator("canvas2", 'image2.png', 'image/png', 'image2');
 
     clickOption('#colours1 > #o1');
     clickOption('#lineWidths1 > #o3');
     clickOption('#pressures1 > #o2');
 
-    // draw image1 onto the canvas
-    var img = document.getElementById("image1");
-    ctx.drawImage(img, 0, 0);
+    imaginator2.pen.mimick = imaginator1.pen;
+
+    imaginator1.loadFromImage();
+    imaginator2.loadFromImage();
 
 }
 
-function doClear() {
-    var canvas = document.getElementById("canvas1");
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = pen.colour + pen.alpha;
-    ctx.fillRect(0, 0, 500, 500);
+function doClear(i) {
+    i.clear();
 }
 
-function doSave() {
-    // post the canvas as an image file (raw data / blob)
-    var canvas = document.getElementById("canvas1");
-    i = new Imaginator(canvas, '/saveimage/canvas-2-output.png', 'image/png');
+function doSave(i) {
     i.post();
     alert("image saved");
 }
 
+function doPaste() {
+    imaginator1.ctx.drawImage(imaginator2.image, 0, 0);
+}
+
 function doTiling() {
-    var ctx = document.getElementById('canvas1').getContext('2d');
     var img = new Image();
     img.src = '/static/images/favicon.png';
     img.onload = function() {
-        var ptrn = ctx.createPattern(img, 'repeat');
-        ctx.fillStyle = ptrn;
-        ctx.fillRect(0, 0, 500, 500);
+        var ptrn = imaginator1.ctx.createPattern(img, 'repeat');
+        imaginator1.ctx.fillStyle = ptrn;
+        imaginator1.ctx.fillRect(0, 0, 500, 500);
     }
 }
 

@@ -17,10 +17,18 @@
         </style>
     </head>
     <body>
-        You can draw on this canvas, and save your beautiful artwork.<br/>
-        <canvas id="canvas1" width="500" height="500" style="border:1px solid #808090;">
+        You can draw on these canvases, and save your beautiful artwork.<br/>
+        <canvas id="canvas1" width="300" height="300" style="border:1px solid #808090;">
             Your browser does not support the canvas element.
         </canvas>
+        <button type="button" onclick="doClear(imaginator1)">Clear</button>
+        <button type="button" onclick="doSave(imaginator1)">Save</button>
+        <canvas id="canvas2" width="300" height="300" style="border:1px solid #808090;">
+            Your browser does not support the canvas element.
+        </canvas>
+        <button type="button" onclick="doClear(imaginator2)">Clear</button>
+        <button type="button" onclick="doSave(imaginator2)">Save</button>
+        <br/><br/>
         <div id="colours1">
             pen colour
             <button id="o1" type="button" onclick="setColour('o1', '#000000')">black</button>
@@ -48,14 +56,14 @@
             <button id="o3" type="button" onclick="setPressure('o3', '40')">quarter</button>
         </div><br/>
         <div>
-            <button type="button" onclick="doClear()">Clear</button>
             <button type="button" onclick="doTiling()">Test Tiling</button>
-            <button type="button" onclick="doSave()">Save</button>
+            <button type="button" onclick="doPaste()">Paste</button>
         </div>
         <h2>
             <a href="/static/test/index.html">index</a>
         </h2>
-        <img id="image1" src='/static/images/saved/canvas-2-output.png' style="visibility: hidden;" />
+        <img id="image1" src='/static/images/saved/image1.png' style="visibility: hidden;" />
+        <img id="image2" src='/static/images/saved/image2.png' style="visibility: hidden;" />
         <script>
             window.onload = onPageLoaded;
             onPageLoading();
