@@ -92,7 +92,7 @@ class Imaginator {
 
     load() {
         var img = new Image();
-        img.src = '/static/images/saved/' + this.filename;
+        img.src = '/static/' + this.filename;
         var me = this;
         img.onload = function() {
             me.canvas.width = img.width;
@@ -103,7 +103,7 @@ class Imaginator {
 
     loadTile() {
         var img = new Image();
-        img.src = '/static/images/saved/' + this.filename;
+        img.src = '/static/' + this.filename;
         var me = this;
         img.onload = function() {
             var ptrn = me.ctx.createPattern(img, 'repeat');

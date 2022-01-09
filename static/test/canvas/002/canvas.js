@@ -1,9 +1,9 @@
 function onPageLoaded() {
 
-    imaginator1 = new Imaginator("canvas1", 'image1.png', 'image/png', 'image1');
+    imaginator1 = new Imaginator("canvas1", 'test/canvas/002/images/in01.png', 'image/png', 'image1');
     imaginator1.load();
 
-    imaginator2 = new Imaginator("canvas2", 'image2.png', 'image/png', 'image2');
+    imaginator2 = new Imaginator("canvas2", 'test/canvas/002/images/out01.png', 'image/png', 'image2');
     imaginator2.load();
 
     pen1 = imaginator1.pen;

@@ -51,7 +51,7 @@ public class Example {
 
     private static void handleSaveImage(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleSaveImage");
-        String rootPath = Helper.RootPath() + "/static/images/saved/";
+        String rootPath = Helper.RootPath() + "/static/";
         String prefixToRemove = "/saveimage/";
         String fileName = rootPath + r.getUrl().substring(prefixToRemove.length());
         r.saveToFile(fileName);
