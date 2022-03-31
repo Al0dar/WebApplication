@@ -1,0 +1,4 @@
+view background processes to get the process id <pid>
+'ps -ef
+then: stop the process
+'kill <pid>

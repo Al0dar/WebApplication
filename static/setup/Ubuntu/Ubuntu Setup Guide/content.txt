@@ -1,0 +1,9 @@
+Ubuntu setup guide : v1.0.01.02a
+
+->install java
+->install Git
+->install MySQL
+->clone WebApplication from GitHub
+->run WebApplication as a background process
+->open WebApplication in a web browser
+->stop the WebApplication process

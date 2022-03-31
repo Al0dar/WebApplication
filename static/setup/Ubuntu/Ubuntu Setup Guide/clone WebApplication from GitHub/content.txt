@@ -1,0 +1,6 @@
+clone WebApplication from GitHub
+'(an active GitHub access token is required)
+'cd /
+'git clone https://github.com/Al0dar/WebApplication WebApplication
+''usename: Al0dar
+''password: <current GitHub access token>

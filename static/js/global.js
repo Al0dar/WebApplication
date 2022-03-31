@@ -49,7 +49,7 @@ class CanvasLinePen {
             this.y = toY;
         }
     }
-a
+
     stop() {
         this.active = false;
     }
