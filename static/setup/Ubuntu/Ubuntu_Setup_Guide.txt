@@ -1,41 +1,44 @@
-' Ubuntu setup guide
+Ubuntu setup guide : v1.0.01.02a
 
-' install Git
-sudo apt update
-sudo apt install git
-git --version
+install Git
+'sudo apt update
+'sudo apt install git
+'git --version
 
-' install java
-sudo apt update
-sudo apt install default-jre
-java --version
+install java
+'sudo apt update
+'sudo apt install default-jre
+'java --version
 
-' install MySQL
-sudo apt update
-sudo apt install mysql-server
-' ignore error starting service (around the end of / 98% into the installation process)
-sudo systemctl start mysql.service
+install MySQL
+'sudo apt update
+'sudo apt install mysql-server
+''ignore error starting service (around the end of / 98% into the installation process)
+'sudo systemctl start mysql.service
 
-' configure MySQL passwords and security (interactive)
-sudo mysql_secure_installation
+configure MySQL
+'passwords and security (interactive)
+''sudo mysql_secure_installation
 
-' clone WebApplication from GitHub (an active GitHub access token is required)
-cd /
-git clone https://github.com/Al0dar/WebApplication WebApplication
-' usename: Al0dar, password: <current GitHub access token> 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
+clone WebApplication from GitHub
+'(an active GitHub access token is required)
+'cd /
+'git clone https://github.com/Al0dar/WebApplication WebApplication
+''usename: Al0dar
+''password: <current GitHub access token>
 
-' run WebApplication as a background process
-cd /WebApplication
-(java -classpath "/WebApplication/out/production/WebApplication" springs.network.Main &)
+run WebApplication (as a background process)
+'cd /WebApplication
+'(java -classpath "/WebApplication/out/production/WebApplication" springs.network.Main &)
 
-' open WebApplication in a web browser
-'   browse to
-'       https://springs.network:443/
-'   or
-'       https://localhost:443/
+open WebApplication in a web browser
+'browse to
+''https://springs.network:443/
+'or
+''https://localhost:443/
 
-' stop the WebApplication background process
-'   1 - view background processes
-ps -ef
-'   2 - stop the process
-kill <pid>
+stop the WebApplication (background process)
+'1 - view background processes
+''ps -ef
+'2 - stop the process
+''kill <pid>
