@@ -15,6 +15,12 @@ function onPageLoaded() {
 
 }
 
+function clickOption(range) {
+    $(range).map(function() {
+        this.click();
+    });
+}
+
 function setPenColour(id, v) {
     pen1.colour = v;
     updateStyles(id, '#colours1 > button', 'button', 'button_selected');
@@ -26,14 +32,8 @@ function setPenWidth(id, v) {
 }
 
 function setPenPressure(id, v) {
-    pen1.alpha = v;
+    pen1.pressure = v;
     updateStyles(id, '#pressures1 > button', 'button', 'button_selected');
-}
-
-function clickOption(range) {
-    $(range).map(function() {
-        this.click();
-    });
 }
 
 function updateStyles(selectedId, range, normalClass, selectedClass) {
@@ -47,6 +47,3 @@ function updateStyles(selectedId, range, normalClass, selectedClass) {
         }
     });
 }
-
-
-

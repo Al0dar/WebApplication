@@ -13,7 +13,7 @@ public class Example {
     // TODO : check that the URI is valid (eg. /favicon.ico is not valid for handleHome)
 
     public static void start() throws Exception {
-        WebServer.create(8500);
+        WebServer.create(443);
         WebServer.listen("/", Example::handleHome);
         WebServer.listen("/favicon.ico", Example::handleFavIcon);
         WebServer.listen("/static/", Example::handleStatic);

@@ -5,7 +5,7 @@ class CanvasLinePen {
         this.x = 0;
         this.y = 0;
         this.colour = '#00ff00';
-        this.alpha = 'ff';
+        this.pressure = 'ff';
         this.width = 3;
         this.active = false;
     }
@@ -18,9 +18,9 @@ class CanvasLinePen {
 
     getStrokeStyle() {
         if (this.mimick)
-            return this.mimick.colour + this.mimick.alpha;
+            return this.mimick.colour + this.mimick.pressure;
         else
-            return this.colour + this.alpha;
+            return this.colour + this.pressure;
     }
 
     getLineWidth() {
@@ -49,7 +49,7 @@ class CanvasLinePen {
             this.y = toY;
         }
     }
-
+a
     stop() {
         this.active = false;
     }
@@ -66,7 +66,7 @@ class Imaginator {
         this.pen = new CanvasLinePen(this.ctx);
         this.pen.colour = '#000000';
         this.pen.width = 2;
-        this.pen.alpha = '99';
+        this.pen.pressure = '99';
         this.canvas.addEventListener('mousedown', e => {
             this.pen.start(e.offsetX, e.offsetY);
         });
