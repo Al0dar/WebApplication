@@ -1,4 +1,4 @@
-sudo apt update
-sudo apt install mysql-server
+#sudo apt update
+#sudo apt install mysql-server
 'ignore error starting service (around the end of / 98% into the installation process)
-sudo systemctl start mysql.service
+#sudo systemctl start mysql.service

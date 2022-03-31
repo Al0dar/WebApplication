@@ -1,3 +1,2 @@
-configure MySQL
-'passwords and security (interactive)
-''sudo mysql_secure_installation
+passwords and security (interactive)
+'#sudo mysql_secure_installation
