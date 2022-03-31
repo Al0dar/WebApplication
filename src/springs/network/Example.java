@@ -10,7 +10,7 @@ import springs.network.web.WebServer;
 
 public class Example {
 
-    // TODO : check that the URI is valid (eg. /favicon.ico is not valid for handleHome)
+    // TODO : check that the URI is valid and accessible
 
     public static void start() throws Exception {
         WebServer.create(443);
@@ -50,11 +50,14 @@ public class Example {
     }
 
     private static void handleSaveImage(HttpExchange exchange) throws IOException {
-        Responder r = WebServer.getResponder(exchange, "Example.handleSaveImage");
-        String rootPath = Helper.RootPath() + "/static/";
-        String prefixToRemove = "/saveimage/";
-        String fileName = rootPath + r.getUrl().substring(prefixToRemove.length());
-        r.saveToFile(fileName);
+        boolean haveWriteAccess = false; // insecure at the moment: URLs need filtering
+        if (haveWriteAccess) {
+            Responder r = WebServer.getResponder(exchange, "Example.handleSaveImage");
+            String rootPath = Helper.RootPath() + "/static/";
+            String prefixToRemove = "/saveimage/";
+            String fileName = rootPath + r.getUrl().substring(prefixToRemove.length());
+            r.saveToFile(fileName);
+        }
     }
 
     private static void handleInfo(HttpExchange exchange) throws IOException {
