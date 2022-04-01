@@ -12,14 +12,13 @@ import java.security.KeyStore;
 
 public class SSLHelper {
 
-    public static HttpServer CreateHTTPSServer(Integer port) throws Exception {
+    public static HttpServer CreateHTTPSServer(Integer port) {
 
-        // implementation note : to generate the testkey.jks file, use the following from a command prompt :-
-        //
-        //      keytool -genkeypair -keyalg RSA -alias selfsigned -keystore testkey.jks -storepass password -validity 360 -keysize 2048
-        //
-        // then move the file into the 'working folder'.
-        // You can determine the 'working folder' path in java by using System.getProperty("user.dir")
+        // note: to generate the testkey.jks file
+        // '#keytool -genkeypair -keyalg RSA -alias selfsigned -keystore testkey.jks -storepass password -validity 360 -keysize 2048
+        // then: move the file into the working folder.
+        // 'note: you can determine the working folder path in java like this
+        // ''#System.getProperty("user.dir")
 
         HttpServer rv = null;
 

@@ -10,7 +10,17 @@ import springs.network.web.WebServer;
 
 public class Example {
 
-    // TODO : check that the URI is valid and accessible
+    // todo
+    // 'security
+    // ''filter URIs, only allowing 'whitelisted' characters.
+    // ''check that URIs are valid and accessible.
+    // 'transformers
+    // ''to
+    // '''html
+    // '''markdown/plain text
+    // '''xml
+    // '''json
+    // 'note: this mark up language looks similar to MUMPS
 
     public static void start() throws Exception {
         WebServer.create(443);
@@ -49,7 +59,7 @@ public class Example {
         r.respondWithFile(Helper.RootPath() + r.getUrl());
     }
 
-    private static void handleSaveImage(HttpExchange exchange) throws IOException {
+    private static void handleSaveImage(HttpExchange exchange) {
         boolean haveWriteAccess = false; // insecure at the moment: URLs need filtering
         if (haveWriteAccess) {
             Responder r = WebServer.getResponder(exchange, "Example.handleSaveImage");
