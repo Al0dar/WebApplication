@@ -1,0 +1,45 @@
+Ubuntu setup guide : v1.0.01.02a
+
+install java
+------------
+#sudo apt update
+#sudo apt install default-jre
+#java --version
+
+install Git
+-----------
+#sudo apt update
+#sudo apt install git
+#git --version
+
+clone WebApplication from GitHub
+--------------------------------
+obtain an active GitHub access token
+#cd /
+#git clone https://github.com/Al0dar/WebApplication WebApplication
+'usename: Al0dar
+'password: <current GitHub access token>
+
+start WebApplication as a background process
+--------------------------------------------
+#cd /WebApplication
+#(java -classpath "/WebApplication/out/production/WebApplication" springs.network.Main &)
+
+open WebApplication in a web browser
+------------------------------------
+browse to
+'=>https://springs.network:443/
+or
+'=>https://localhost:443/
+
+stop the WebApplication process
+-------------------------------
+view background processes to get the process id <pid>
+'#ps -ef
+stop the process
+'#kill <pid>
+
+update WebApplication from GitHub
+---------------------------------
+#cd /WebApplication
+#git pull
