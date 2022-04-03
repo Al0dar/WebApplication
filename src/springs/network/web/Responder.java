@@ -81,9 +81,7 @@ public class Responder {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
-
                 String trim = line.trim();
-
                 out("<div>");
                 if (trim.startsWith("#")) {
                     out("<i>" + line + "</i>");
@@ -92,13 +90,11 @@ public class Responder {
                 } else
                     out(line);
                 out("</div><br/>");
-
             }
         }
     }
 
     public void saveToFile(String fileName) {
-
         try {
             File file = new File(fileName);
             file.createNewFile();
@@ -111,7 +107,6 @@ public class Responder {
         } catch (Exception ex) {
             System.out.println("?:" + ex.toString());
         }
-
     }
 
     public String getRequestCookie(String key) {

@@ -2,27 +2,18 @@ package springs.network;
 
 import com.sun.net.httpserver.HttpExchange;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.*;
 
-import springs.network.web.Responder;
-import springs.network.web.WebServer;
+import springs.network.web.*;
 
 public class Example {
 
-    // todo
-    // 'security
-    // ''filter URIs, only allowing 'whitelisted' characters.
-    // ''check that URIs are valid and accessible.
-    // 'transformers
-    // ''to
-    // '''html
-    // '''markdown/plain text
-    // '''xml
-    // '''json
-    // 'note: this mark up language looks similar to MUMPS
+    /*
+        todo
+            filter URIs, only allowing 'whitelisted' characters.
+            check that URIs are valid and accessible.
+    */
 
     public static void start() throws Exception {
         WebServer.create(443);
