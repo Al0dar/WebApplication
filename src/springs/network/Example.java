@@ -2,6 +2,8 @@ package springs.network;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.*;
 
@@ -56,7 +58,18 @@ public class Example {
 
     private static void handleStatic(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleStatic");
-        r.respondWithFile(Helper.RootPath() + r.getUrl());
+        String fileName = Helper.RootPath() + r.getUrl();
+        if (fileName.toLowerCase().trim().endsWith(".fooml")) {
+            r.startHtml();
+            r.out("<html>");
+            r.out("<body>");
+            r.outHtmlFromFooML(fileName);
+            r.out("</body>");
+            r.out("</html>");
+            r.end();
+        }
+        else
+            r.respondWithFile(fileName);
     }
 
     private static void handleSaveImage(HttpExchange exchange) {

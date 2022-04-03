@@ -77,6 +77,26 @@ public class Responder {
 
     }
 
+    public void outHtmlFromFooML(String fileName) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+
+                String trim = line.trim();
+
+                out("<div>");
+                if (trim.startsWith("#")) {
+                    out("<i>" + line + "</i>");
+                } else if (trim.startsWith("*")) {
+                    out("<b>" + trim.substring(1) + "</b>");
+                } else
+                    out(line);
+                out("</div><br/>");
+
+            }
+        }
+    }
+
     public void saveToFile(String fileName) {
 
         try {

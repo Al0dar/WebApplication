@@ -14,11 +14,11 @@ Ubuntu setup guide : v1.0.03.01a
 
 * clone WebApplication from GitHub
 
-    * obtain an active GitHub access token
+    You will need to obtain an active [GitHub access token] in order to complete this process.
     # cd /
     # git clone https://github.com/Al0dar/WebApplication WebApplication
         usename: Al0dar
-        password: <current GitHub access token>
+        password: [GitHub access token]
 
 * start WebApplication as a background process
 
