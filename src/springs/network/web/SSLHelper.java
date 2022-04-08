@@ -48,7 +48,7 @@ public class SSLHelper {
             try {
                 System.out.print("trying to open cacerts: ");
                 ks = KeyStore.getInstance("JKS");
-                password = "T3stD1g1Cert01xxx".toCharArray();
+                password = "T3stD1g1Cert01".toCharArray();
                 FileInputStream fis = new FileInputStream("cacerts.xxx");
                 ks.load(fis, password);
                 System.out.println("ok.");
