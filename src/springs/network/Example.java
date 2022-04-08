@@ -16,7 +16,7 @@ public class Example {
     */
 
     public static void start() throws Exception {
-        WebServer.create(80);
+        WebServer.create(443);
         WebServer.listen("/", Example::handleHome);
 
         // http://springs.network/.well-known/pki-validation/fileauth.txt

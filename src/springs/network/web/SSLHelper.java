@@ -9,6 +9,10 @@ import javax.net.ssl.*;
 import java.io.FileInputStream;
 import java.net.InetSocketAddress;
 import java.security.KeyStore;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 public class SSLHelper {
 
@@ -32,10 +36,30 @@ public class SSLHelper {
             SSLContext sslContext = SSLContext.getInstance("TLS");
 
             // initialise the keystore
-            char[] password = "password".toCharArray();
-            KeyStore ks = KeyStore.getInstance("JKS");
-            FileInputStream fis = new FileInputStream("testkey.jks");
-            ks.load(fis, password);
+
+            // to import a certificate in PEM format into a keystore, keytool will do the job:
+            //     # keytool -import -alias *alias* -keystore cacerts -file *cert.pem*
+
+            // # keytool -import -alias TestDigiCert01 -keystore cacerts -file springs.network.pem
+
+            KeyStore ks = null;
+            char[] password = null;
+            if (false) {
+                ks = KeyStore.getInstance("JKS");
+                password = "password".toCharArray();
+                FileInputStream fis = new FileInputStream("testkey.jks");
+                ks.load(fis, password);
+            } else {
+                ks = KeyStore.getInstance("TestDigiCert01");
+                System.out.println();
+                System.out.print("trying to obtain TestDigiCert01 from key store: ");
+                if (ks == null)
+                    System.out.println("failed");
+                else
+                    System.out.println("ok.");
+                password = "T3stD1g1Cert01".toCharArray();
+                ks.load(null, password);
+            }
 
             // setup the key manager factory
             KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
