@@ -1,0 +1,7 @@
+generate Certificate Signing Request
+# openssl req -newkey rsa:2048 -keyout PRIVATEKEY.key -out MYCSR.csr
+
+prove domain ownership (of springs.network)
+    make fileauth.txt available at this URL
+        http://springs.network/.well-known/pki-validation/fileauth.txt
+

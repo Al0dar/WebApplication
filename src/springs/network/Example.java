@@ -16,8 +16,12 @@ public class Example {
     */
 
     public static void start() throws Exception {
-        WebServer.create(443);
+        WebServer.create(80);
         WebServer.listen("/", Example::handleHome);
+
+        // http://springs.network/.well-known/pki-validation/fileauth.txt
+        WebServer.listen("/.well-known/pki-validation/fileauth.txt", Example::handleSSLValidation);
+
         WebServer.listen("/favicon.ico", Example::handleFavIcon);
         WebServer.listen("/static/", Example::handleStatic);
         WebServer.listen("/saveimage/", Example::handleSaveImage);
@@ -45,6 +49,11 @@ public class Example {
     private static void handleFavIcon(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleFavIcon");
         r.respondWithFile(Helper.RootPath() + "/static/images/favicon.png");
+    }
+
+    private static void handleSSLValidation(HttpExchange exchange) throws IOException {
+        Responder r = WebServer.getResponder(exchange, "Example.handleSSLValidation");
+        r.respondWithFile(Helper.RootPath() + "/static/SSLValidation/fileauth.txt");
     }
 
     private static void handleStatic(HttpExchange exchange) throws IOException {

@@ -13,7 +13,7 @@ public class WebServer {
 
     public static void create(Integer port) throws Exception {
 
-        boolean useSSL = true;
+        boolean useSSL = false;
         if (useSSL)
             server = SSLHelper.CreateHTTPSServer(port);
         else
