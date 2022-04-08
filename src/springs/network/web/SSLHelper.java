@@ -44,21 +44,20 @@ public class SSLHelper {
 
             KeyStore ks = null;
             char[] password = null;
-            if (false) {
+
+            try {
+                System.out.print("trying to open cacerts: ");
+                ks = KeyStore.getInstance("JKS");
+                password = "T3stD1g1Cert01".toCharArray();
+                FileInputStream fis = new FileInputStream("cacerts");
+                ks.load(fis, password);
+                System.out.println("ok.");
+            } catch (Exception ex) {
+                System.out.println("failed, defaulting to last known working configuration.");
                 ks = KeyStore.getInstance("JKS");
                 password = "password".toCharArray();
                 FileInputStream fis = new FileInputStream("testkey.jks");
                 ks.load(fis, password);
-            } else {
-                ks = KeyStore.getInstance("TestDigiCert01");
-                System.out.println();
-                System.out.print("trying to obtain TestDigiCert01 from key store: ");
-                if (ks == null)
-                    System.out.println("failed");
-                else
-                    System.out.println("ok.");
-                password = "T3stD1g1Cert01".toCharArray();
-                ks.load(null, password);
             }
 
             // setup the key manager factory
