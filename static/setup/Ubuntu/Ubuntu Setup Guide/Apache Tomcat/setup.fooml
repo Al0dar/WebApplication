@@ -1,0 +1,16 @@
+# sudo apt update
+# sudo apt-cache search tomcat
+# sudo apt install tomcat9 tomcat9-admin
+port 8080 should now be open
+    # ss -ltn
+When Ubuntu reboots, the Apache Tomcat Server will start automatically.
+This can be changed by
+    # sudo systemctl enable tomcat9
+    # sudo systemctl disable tomcat9
+Browse to Tomcat's root URL
+    http://springs.network:8080/
+    and you should see an 'It works !' web page
+
+get Tomcat zip file
+    # cd /tmp
+    # wget http://apache.rediris.es/tomcat/tomcat-9/v9.0.10/bin/apache-tomcat-9.0.10.zip
