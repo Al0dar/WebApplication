@@ -73,7 +73,7 @@ public class Example {
     }
 
     private static void handleSaveImage(HttpExchange exchange) {
-        boolean haveWriteAccess = false; // insecure at the moment: URLs need filtering
+        boolean haveWriteAccess = true; // insecure at the moment: URLs need filtering
         if (haveWriteAccess) {
             Responder r = WebServer.getResponder(exchange, "Example.handleSaveImage");
             String rootPath = Helper.RootPath() + "/static/";

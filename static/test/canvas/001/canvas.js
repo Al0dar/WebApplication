@@ -72,7 +72,7 @@ function postCanvasToSaveImage(canvas) {
 function postBlobToSaveImage(blob) {
 
     $.ajax( {
-       url: '/saveimage/canvas1-output.png',
+       url: '/saveimage/test/canvas/001/output.png',
        type: 'POST',
        contentType: 'application/octet-stream',
        data: blob,
