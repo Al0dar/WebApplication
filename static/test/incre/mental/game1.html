@@ -5,16 +5,39 @@
     </head>
     <body>
         <h1>incremental game 1</h1>
-        balance <b><span id="balance"></span></b><br/>
+        elapsed time <b><span id="elapsedTime"></span></b><br/>
+        <br/>
+        balance A <b><span id="balanceA"></span></b><br/>
+        balance B <b><span id="balanceB"></span></b><br/>
+        browser screen dimensions <b><span id="browserScreenDimensions"></span></b><br/>
         <br/>
         <a href="/">home</a><br/>
         <script>
-            balance = 1;
+            startTimeMS = Date.now();
+            balanceA = 1;
+            balanceB = 1;
             window.setInterval(update, 1000);
             function update() {
-                eBalance = document.getElementById("balance");
-                eBalance.innerHTML = balance;
-                balance = balance + 1;
+                // elapsed time
+                elapsedMS = Date.now() - startTimeMS;
+                setContent("elapsedTime", Math.round(elapsedMS / 1000) + " seconds");
+                // balance
+                balanceA = balanceA + 1;
+                balanceB = balanceB * 1.001;
+                setContent("balanceA", Math.round(balanceA * 1000) / 1000);
+                setContent("balanceB", Math.round(balanceB * 1000) / 1000);
+                // browser screen dimensions
+                sd = "width " + window.screen.width + " ";
+                sd += "height " + window.screen.height + " ";
+                sd += "pixel ration " + window.devicePixelRatio;
+                setContent("browserScreenDimensions", sd);
+            }
+            function setContent(elementId, content) {
+                el = getElement(elementId);
+                el.innerHTML = content;
+            }
+            function getElement(elementId) {
+                return document.getElementById(elementId);
             }
         </script>
     </body>
