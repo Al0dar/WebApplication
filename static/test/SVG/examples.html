@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SVG examples</title>
+    </head>
+    <body>
+        1<br/>
+        <svg width="400" height="110">
+            <rect width="300" height="100"
+                  style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
+        </svg><br/>
+        2<br/>
+        <svg width="400" height="180">
+            <rect width="150" height="150" x="50" y="20"
+                  style="fill:blue;stroke:pink;stroke-width:5;opacity:0.5" />
+        </svg><br/>
+        3<br/>
+        <svg width="400" height="180">
+            <rect width="150" height="150" x="50" y="20" rx="20" ry="20"
+                  style="fill:red;stroke:black;stroke-width:5;opacity:0.5" />
+        </svg><br/>
+
+        <svg height="100" width="100">
+            <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+        </svg>
+
+        <svg height="140" width="500">
+            <ellipse cx="200" cy="80" rx="100" ry="50"
+                     style="fill:yellow;stroke:purple;stroke-width:2" />
+        </svg>
+
+        <svg height="210" width="500">
+            <line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
+        </svg>
+
+        <svg height="210" width="500">
+            <polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" />
+        </svg>
+
+        <svg height="250" width="500">
+            <polygon points="220,10 300,210 170,250 123,234" style="fill:lime;stroke:purple;stroke-width:1" />
+        </svg>
+
+        <svg height="210" width="500">
+            <polygon points="100,10 40,198 190,78 10,78 160,198"
+                     style="fill:lime;stroke:purple;stroke-width:5;fill-rule:nonzero;" />
+        </svg>
+
+        <svg height="210" width="500">
+            <polygon points="100,10 40,198 190,78 10,78 160,198"
+                     style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" />
+        </svg>
+
+        <svg height="200" width="500">
+            <polyline points="20,20 40,25 60,40 80,120 120,140 200,180"
+                      style="fill:none;stroke:black;stroke-width:3" />
+        </svg>
+
+        <svg height="210" width="400">
+            <path d="M150 0 L75 200 L225 200 Z" />
+        </svg>
+
+        <svg height="400" width="450">
+            <path id="lineAB" d="M 100 350 l 150 -300" stroke="red"
+                  stroke-width="3" fill="none" />
+            <path id="lineBC" d="M 250 50 l 150 300" stroke="red"
+                  stroke-width="3" fill="none" />
+            <path d="M 175 200 l 150 0" stroke="green" stroke-width="3"
+                  fill="none" />
+            <path d="M 100 350 q 150 -300 300 0" stroke="blue"
+                  stroke-width="5" fill="none" />
+            <!-- Mark relevant points -->
+            <g stroke="black" stroke-width="3" fill="black">
+                <circle id="pointA" cx="100" cy="350" r="3" />
+                <circle id="pointB" cx="250" cy="50" r="3" />
+                <circle id="pointC" cx="400" cy="350" r="3" />
+            </g>
+            <!-- Label the points -->
+            <g font-size="30" font-family="sans-serif" fill="black" stroke="none"
+               text-anchor="middle">
+                <text x="100" y="350" dx="-30">A</text>
+                <text x="250" y="50" dy="-10">B</text>
+                <text x="400" y="350" dx="30">C</text>
+            </g>
+        </svg>
+
+        <svg height="190" width="300">
+            <text x="30" y="20" style="fill:red;" transform="rotate(30 20,40)">Several lines:
+                <tspan x="30" y="45">First line.</tspan>
+                <tspan x="30" y="70">Second line.</tspan>
+            </text>
+        </svg>
+        <svg height="30" width="200" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <a xlink:href="https://www.w3schools.com/graphics/" target="_blank">
+                <text x="0" y="15" fill="red">this is a link!</text>
+            </a>
+        </svg>
+
+        <svg height="80" width="300">
+            <g fill="none" stroke="black">
+                <path stroke="red"   stroke-width="2" d="M5 20 l215 0" />
+                <path stroke="black" stroke-width="4" d="M5 40 l215 0" />
+                <path stroke="blue"  stroke-width="6" d="M5 60 l215 0" />
+            </g>
+        </svg>
+
+        <svg height="80" width="300">
+            <g fill="none" stroke="black" stroke-width="10">
+                <path stroke-linecap="butt" d="M5 20 l215 0" />
+                <path stroke-linecap="round" d="M5 40 l215 0" />
+                <path stroke-linecap="square" d="M5 60 l215 0" />
+            </g>
+        </svg>
+
+        <svg height="80" width="300">
+            <g fill="none" stroke="black" stroke-width="4">
+                <path stroke-dasharray="5,5" d="M5 20 l215 0" />
+                <path stroke-dasharray="10,10" d="M5 40 l215 0" />
+                <path stroke-dasharray="20,10,5,5,5,10" d="M5 60 l215 0" />
+            </g>
+        </svg>
+
+        <svg height="110" width="110">
+            <defs>
+                <filter id="f1" x="0" y="0">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="15" />
+                </filter>
+            </defs>
+            <rect width="90" height="90" stroke="green" stroke-width="3"
+                  fill="yellow" filter="url(#f1)" />
+        </svg>
+
+        <svg height="150" width="400">
+            <defs>
+                <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <ellipse cx="200" cy="70" rx="85" ry="55" fill="url(#grad3)" />
+            <text fill="#ffffff" font-size="45" font-family="Verdana" x="150" y="86">
+                SVG
+            </text>
+        </svg>
+
+        <svg width="400" height="400">
+            <rect x="20" y="20" width="250" height="250" style="fill:blue">
+                <animate attributeType="CSS" attributeName="opacity" from="1" to="0" dur="5s" repeatCount="indefinite" />
+            </rect>
+        </svg>
+
+        <br/>
+        <a href="/">home</a><br/>
+    </body>
+</html>
