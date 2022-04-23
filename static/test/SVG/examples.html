@@ -5,17 +5,17 @@
     </head>
     <body>
         <svg width="800" height="1000">
-            <rect  x="0" y="0" width="300" height="100"
-                  style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
-            <rect  x="320" y="10" width="150" height="150"
+            <rect id="rect1" x="5" y="5" width="300" height="100"
+                  style="fill:rgb(0,128,255);stroke-width:3;stroke:rgb(0,0,0)" />
+            <rect id="rect2" x="320" y="10" width="150" height="150"
                   style="fill:blue;stroke:pink;stroke-width:5;opacity:0.5" />
-            <rect x="20" y="120" width="150" height="150" rx="20" ry="20"
+            <rect id="rect3" x="20" y="120" width="150" height="150" rx="20" ry="20"
                   style="fill:red;stroke:black;stroke-width:5;opacity:0.5" />
-            <circle cx="230" cy="200" r="40" stroke="black" stroke-width="3" fill="red" />
-            <ellipse cx="400" cy="250" rx="100" ry="50"
+            <circle id="circle1" cx="230" cy="200" r="40" stroke="black" stroke-width="3" fill="red" />
+            <ellipse id="ellipse1" cx="400" cy="250" rx="100" ry="50"
                      style="fill:yellow;stroke:purple;stroke-width:2" />
             <g transform="translate(0 330)">
-                <polygon points="100,10 40,198 190,78 10,78 160,198"
+                <polygon id="target1" points="100,10 40,198 190,78 10,78 160,198"
                          style="fill:lime;stroke:purple;stroke-width:5;fill-rule:nonzero;" />
             </g>
             <g transform="translate(210 330)">
@@ -26,20 +26,20 @@
                 <polygon points="220,10 300,210 170,250 123,234" style="fill:lime;stroke:purple;stroke-width:1" />
             </g>
             <g transform="translate(0 600)">
-                <polyline points="20,20 40,25 60,40 80,120 120,140 200,180"
+                <polyline id="gPoly" points="20,20 40,25 60,40 80,120 120,140 200,180"
                           style="fill:none;stroke:black;stroke-width:3" />
             </g>
-            <g transform="translate(170 600)">
+            <g id="g0" transform="translate(170 600)">
                 <path d="M150 0 L75 200 L225 200 Z" />
             </g>
-            <g transform="translate(300 600)">
+            <g id="g1" transform="translate(300 600)">
                 <path id="lineAB" d="M 100 350 l 150 -300" stroke="red"
                       stroke-width="3" fill="none" />
                 <path id="lineBC" d="M 250 50 l 150 300" stroke="red"
                       stroke-width="3" fill="none" />
                 <path d="M 175 200 l 150 0" stroke="green" stroke-width="3"
                       fill="none" />
-                <path d="M 100 350 q 150 -300 300 0" stroke="blue"
+                <path id="gBezier1" d="M 100 350 q 150 -300 300 0" stroke="blue"
                       stroke-width="5" fill="none" />
                 <g stroke="black" stroke-width="3" fill="black">
                     <circle id="pointA" cx="100" cy="350" r="3" />
@@ -52,7 +52,6 @@
                     <text x="250" y="50" dy="-10">B</text>
                     <text x="400" y="350" dx="30">C</text>
                 </g>
-
             </g>
             <g transform="translate(30 600)">
                 <text x="120" y="220" style="fill:red;" transform="rotate(30 20,40)">Several lines:
@@ -113,5 +112,31 @@
         </svg>
         <br/>
         <a href="/">home</a><br/>
+        <script>
+            bind('rect1');
+            bind('rect2');
+            bind('rect3');
+            bind('circle1');
+            bind('ellipse1');
+            bind('target1');
+            bind('gPoly');
+            bind('g0');
+            bind('g1');
+            bind('gBezier1');
+            function bind(id) {
+                o = document.getElementById(id);
+                o.addEventListener('click', onClick);
+                o.addEventListener("mouseover", onMouseOver);
+            }
+            function onClick(e) {
+                o = e.currentTarget;
+                //alert(o.id + ' style: ' + o.getAttribute('style'));
+                o.setAttribute('style', 'fill:grey;stroke:black;stroke-width:2;fill-rule:nonzero;');
+            }
+            function onMouseOver(e) {
+                o = e.currentTarget;
+                o.setAttribute('style', 'fill:pink;stroke:red;stroke-width:5;fill-rule:evenodd;');
+            }
+        </script>
     </body>
 </html>
