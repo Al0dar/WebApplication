@@ -90,7 +90,7 @@ class CanvasLinePen {
 class Imaginator {
 
     constructor(canvasId, filename, blobType, imageId) {
-        this.canvas = document.getElementById(canvasId);
+        this.canvas = getElement(canvasId);
         this.filename = filename;
         this.blobType = blobType;
         this.ctx = this.canvas.getContext("2d");
@@ -140,7 +140,7 @@ class Imaginator {
     }
 
     drawSVG(id) {
-        var svg = document.getElementById(id);
+        var svg = getElement(id);
         var img = new Image();
         var xml = new XMLSerializer().serializeToString(svg);
         var svg64 = btoa(xml);

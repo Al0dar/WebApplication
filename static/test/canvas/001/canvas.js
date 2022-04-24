@@ -1,6 +1,6 @@
 function onPageLoading() {
 
-    var canvas = document.getElementById("canvas1");
+    var canvas = getElement("canvas1");
     var ctx = canvas.getContext("2d");
 
     ctx.save();
