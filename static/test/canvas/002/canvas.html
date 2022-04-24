@@ -65,14 +65,59 @@
             <button id="o2" type="button" onclick="setPenPressure('o2', '80')">half</button>
             <button id="o3" type="button" onclick="setPenPressure('o3', '40')">quarter</button>
         </div><br/>
-        <div>
-            <button type="button" onclick="imaginator1.loadTile()">Test Tiling</button>
+        <div style="border-style: dotted; padding: 10px;">experimental stuff
+            <div>
+                <svg id="svg1" height="70" width="240" opacity="0.25">
+                    <g fill="none" stroke="blue" stroke-width="10">
+                        <path stroke-linecap="butt"
+                              d="M5 20 l150 0" />
+                        <path stroke-linecap="round"
+                              d="M5 40 l150 0" />
+                        <path stroke-linecap="square"
+                              d="M5 60 l150 0" />
+                    </g>
+                </svg><br/>
+                <button type="button" onclick="imaginator1.drawSVG('svg1')">Draw</button>
+            </div>
+            <div>
+                <svg id='svg2' height='70' width='240' opacity='0.25'>
+                    <g fill='none' stroke='blue' stroke-width='4'>
+                        <path stroke-dasharray='5, 5'
+                              d='M5 20 l150 0' />
+                        <path stroke-dasharray='10, 10' stroke-linecap='round'
+                              d='M5 40 l150 0' />
+                        <path stroke-dasharray='20, 10, 5, 5, 5, 10'
+                              d='M5 60 l150 0' />
+                    </g>
+                </svg><br/>
+                <button type="button" onclick="imaginator1.drawSVG('svg2')">Draw</button>
+            </div>
+            <br/>
+            <button type="button" onclick="imaginator1.testDrawing()">Test drawing</button>
+            <button type="button" onclick="testDrawSVG()">Test draw SVG</button>
         </div>
-        <h2>
-            <a href="/static/test/index.html">index</a>
-        </h2>
+        <br/>
+        <a href="/static/test/index.html">index</a>
+        <div style="visibility:hidden;">
+            <img id="svgTempImage"/>
+            <div id="free1"/>
+        </div>
         <script>
             window.onload = onPageLoaded;
+            function testDrawSVG() {
+                var id = "some_random_string_5h4U3gh7";
+                var svg = getSVG(id);
+                setContent('free1', svg);
+                imaginator1.drawSVG(id);
+            }
+            function getSVG(id) {
+                var style = "fill:pink;stroke:red;stroke-width:5;fill-rule:evenodd;";
+                var svg = ""
+                + "<svg id='" + id + "' opacity='0.5' style='fill:pink;'>"
+                + "<path d='M 10 0 L 75 200 L 225 200 Z' />"
+                + "</svg>";
+                return svg;
+            }
         </script>
     </body>
 </html>

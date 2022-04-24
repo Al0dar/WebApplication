@@ -1,3 +1,12 @@
+function setContent(elementId, content) {
+    el = getElement(elementId);
+    el.innerHTML = content;
+}
+
+function getElement(elementId) {
+    return document.getElementById(elementId);
+}
+
 class CanvasLinePen {
 
     constructor(ctx) {
@@ -54,6 +63,28 @@ class CanvasLinePen {
         this.active = false;
     }
 
+    exampleDashArray(x, y, x2, y2, dashArray) {
+        var c = this.ctx;
+        if (!dashArray) dashArray=[10,5];
+        if (dashLength == 0) dashLength = 0.001;
+        var dashCount = dashArray.length;
+        c.moveTo(x, y);
+        var dx = (x2-x), dy = (y2-y);
+        var slope = dx ? dy / dx : 1e15;
+        var distRemaining = Math.sqrt( (dx * dx) + (dy * dy) );
+        var dashIndex = 0, draw = true;
+        while (distRemaining >= 0.1) {
+            var dashLength = dashArray[dashIndex++ % dashCount];
+            if (dashLength > distRemaining) dashLength = distRemaining;
+            var xStep = Math.sqrt(dashLength*dashLength / (1 + slope*slope));
+            if (dx<0) xStep = -xStep;
+            x += xStep
+            y += slope * xStep;
+            c[draw ? 'lineTo' : 'moveTo'](x,y);
+            distRemaining -= dashLength;
+            draw = !draw;
+        }
+    }
 }
 
 class Imaginator {
@@ -99,6 +130,27 @@ class Imaginator {
             me.canvas.height = img.height;
             me.ctx.drawImage(img, 0, 0);
         }
+    }
+
+    testDrawing() {
+        var pen = this.pen;
+        pen.start(5, 5);
+        pen.drawTo(50, 50);
+        pen.stop();
+    }
+
+    drawSVG(id) {
+        var svg = document.getElementById(id);
+        var img = new Image();
+        var xml = new XMLSerializer().serializeToString(svg);
+        var svg64 = btoa(xml);
+        var b64Start = 'data:image/svg+xml;base64,';
+        var image64 = b64Start + svg64;
+        var me = this;
+        img.onload = function() {
+            me.ctx.drawImage(img, 0, 0);
+        }
+        img.src = image64;
     }
 
     loadTile() {
