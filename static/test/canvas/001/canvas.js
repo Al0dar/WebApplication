@@ -40,25 +40,25 @@ function onPageLoading() {
 
 function onPageLoaded() {
 
-    var canvas = document.getElementById("canvas1");
+    var canvas = getElement("canvas1");
     var ctx = canvas.getContext("2d");
 
     // draw image1 onto the canvas
-    var img = document.getElementById("image1");
+    var img = getElement("image1");
     ctx.drawImage(img, 50, 310);
 
     // mess around with raw RGBA data
     var image = ctx.getImageData(260, 310, 100, 100);
     var imageData = image.data,
     length = imageData.length;
-    for(var i=3; i < length; i+=4){
-        if(imageData[i-2]>2)
+    for(var i = 3; i < length; i += 4){
+        if(imageData[i - 2] > 2)
             imageData[i] = 50;
     }
     image.data = imageData;
     ctx.putImageData(image, 260, 310);
 
-    // post the canvas as an image file (raw data / Blob)
+    // post the canvas as an image file (raw data blob)
     postCanvasToSaveImage(canvas);
 
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>canvas 2.00001</title>
+        <title>canvas 2</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="/static/js/global.js"></script>
         <script src="canvas.js"></script>
@@ -105,17 +105,17 @@
         <script>
             window.onload = onPageLoaded;
             function testDrawSVG() {
-                var id = "some_random_string_5h4U3gh7";
-                var svg = getSVG(id);
+                var id = "random_id_g3us64G1Tr";
+                var svg = generateSVG(id);
                 setContent('free1', svg);
                 imaginator1.drawSVG(id);
             }
-            function getSVG(id) {
-                var style = "fill:pink;stroke:red;stroke-width:5;fill-rule:evenodd;";
-                var svg = ""
-                + "<svg id='" + id + "' opacity='0.5' style='fill:pink;'>"
-                + "<path d='M 10 0 L 75 200 L 225 200 Z' />"
-                + "</svg>";
+            function generateSVG(id) {
+                var style = "fill:cyan;";
+                var properties = "id='" + id + "' opacity='0.5' style='" + style + "'";
+                var svg = "<svg " + properties + ">";
+                svg += "<path d='M 10 0 L 75 200 L 225 200 Z' />"
+                svg += "</svg>";
                 return svg;
             }
         </script>
