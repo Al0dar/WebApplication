@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>canvas 3</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/static/js/global.js"></script>
+        <script src="canvas.js"></script>
+        <style>
+            .button {
+                background-color: white;
+                color: black;
+            }
+            .button_selected {
+                background-color: coral;
+                color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="display: inline-block;">
+            <canvas id="canvas1" width="10" height="10" style="border:1px solid #808090;">
+                Your browser does not support the canvas element.
+            </canvas>
+            </br>
+            <button type="button" onclick="imaginator1.clear()">Clear</button>
+            <button type="button" onclick="imaginator1.load()">Load</button>
+            <button type="button" onclick="imaginator1.save()">Save</button>
+            <button type="button" onclick="imaginator1.copyFrom(imaginator2)">Copy Left</button>
+        </div>
+        <br/>
+        <div id="colours1">
+            pen colour
+            <button id="o1" type="button" onclick="setPenColour('o1', '#000000')">black</button>
+            <button id="o2" type="button" onclick="setPenColour('o2', '#808080')">grey</button>
+            <button id="o3" type="button" onclick="setPenColour('o3', '#ffffff')">white</button>
+            <button id="o4" type="button" onclick="setPenColour('o4', '#ff0000')">red</button>
+            <button id="o5" type="button" onclick="setPenColour('o5', '#00ff00')">green</button>
+            <button id="o6" type="button" onclick="setPenColour('o6', '#0000ff')">blue</button>
+            <button id="o7" type="button" onclick="setPenColour('o7', '#ffff00')">yellow</button>
+            <button id="o8" type="button" onclick="setPenColour('o8', '#ff00ff')">magenta</button>
+            <button id="o9" type="button" onclick="setPenColour('o9', '#00ffff')">cyan</button>
+        </div><br/>
+        <div id="lineWidths1">
+            pen size
+            <button id="o1" type="button" onclick="setPenWidth('o1', 1)">1</button>
+            <button id="o2" type="button" onclick="setPenWidth('o2', 2)">2</button>
+            <button id="o3" type="button" onclick="setPenWidth('o3', 3)">3</button>
+            <button id="o4" type="button" onclick="setPenWidth('o4', 5)">5</button>
+            <button id="o5" type="button" onclick="setPenWidth('o5', 10)">10</button>
+        </div><br/>
+        <div id="pressures1">
+            pen pressure (transparency)
+            <button id="o1" type="button" onclick="setPenPressure('o1', 'ff')">full</button>
+            <button id="o2" type="button" onclick="setPenPressure('o2', '80')">half</button>
+            <button id="o3" type="button" onclick="setPenPressure('o3', '40')">quarter</button>
+        </div><br/>
+        <div style="border-style: dotted; padding: 10px;">experimental stuff
+            <button type="button" onclick="imaginator1.testDrawing()">Line</button>
+            <button type="button" onclick="testDrawSVG()">SVG</button>
+        </div>
+        <br/>
+        <a href="/static/test/index.html">index</a>
+        <div style="visibility:hidden;">
+            <div id="testDrawSVG_temp"/>
+        </div>
+        <script>
+            window.onload = onPageLoaded;
+            function testDrawSVG() {
+                var id = "random_id_g3us64G1Tr";
+                var svg = generateSVG(id);
+                setContent('testDrawSVG_temp', svg);
+                imaginator1.drawSVG(id);
+            }
+            function generateSVG(id) {
+                var style = "fill:cyan;";
+                var properties = "id='" + id + "' opacity='0.5' style='" + style + "'";
+                var svg = "<svg " + properties + ">";
+                svg += "<path d='M 10 0 L 75 200 L 225 200 Z' />"
+                svg += "</svg>";
+                return svg;
+            }
+        </script>
+    </body>
+</html>

@@ -104,20 +104,6 @@
         </div>
         <script>
             window.onload = onPageLoaded;
-            function testDrawSVG() {
-                var id = "random_id_g3us64G1Tr";
-                var svg = generateSVG(id);
-                setContent('free1', svg);
-                imaginator1.drawSVG(id);
-            }
-            function generateSVG(id) {
-                var style = "fill:cyan;";
-                var properties = "id='" + id + "' opacity='0.5' style='" + style + "'";
-                var svg = "<svg " + properties + ">";
-                svg += "<path d='M 10 0 L 75 200 L 225 200 Z' />"
-                svg += "</svg>";
-                return svg;
-            }
         </script>
     </body>
 </html>
