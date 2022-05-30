@@ -21,7 +21,8 @@ public class WebServer {
 
         sessions = new WebSessions();
 
-        System.out.println("Web server created @ localhost:" + port);
+        System.out.println("Web server created @ http" + (useSSL ? "s" : "") + "://localhost:" + port);
+
     }
 
     public static void listen(String path, HttpHandler handler) {
