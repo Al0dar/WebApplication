@@ -33,7 +33,7 @@ public class WebServer {
 
     public static void start() {
         server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());
-        // to do: this is a non-limited Executor, see Executors.newFixedThreadPool to limit the number of threads
+        // todo: this is a non-limited Executor, see Executors.newFixedThreadPool to limit the number of threads
         server.start();
         System.out.println("Web server started");
     }
