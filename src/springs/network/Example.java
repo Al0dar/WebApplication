@@ -22,6 +22,7 @@ public class Example {
         WebServer.listen("/static/", Example::handleStatic);
         WebServer.listen("/saveimage/", Example::handleSaveImage);
         WebServer.listen("/info", Example::handleInfo);
+        WebServer.listen("/timer/", Example::handleTimer);
         WebServer.start();
     }
 
@@ -37,6 +38,7 @@ public class Example {
         r.outln("");
         r.outln("<a href='/info'>information</a>");
         r.outln("<a href='/static/test/index.html'>static test</a>");
+        r.outln("<a href='/timer/x'>timer</a>");
         r.out("</body>");
         r.out("</html>");
         r.end();
@@ -88,6 +90,33 @@ public class Example {
         r.outln("cookies");
         r.out_HelperCookies();
         r.outln("<a href='/'>home</a>");
+        r.out("</body>");
+        r.out("</html>");
+        r.end();
+    }
+
+    private static void handleTimer(HttpExchange exchange) throws IOException {
+        Responder r = WebServer.getResponder(exchange, "Example.handleTimer");
+        r.startHtml();
+        r.out("<html>");
+        r.out("<body>");
+        r.outln("<b>Timer</b>");
+
+        r.out("starting: ");
+        r.outln(LocalDate.now() + " " + LocalTime.now() + "");
+
+        r.out("sleeping..: ");
+        try {
+            java.lang.Thread.sleep(5000);
+            r.out("finished: ");
+        }
+        catch (Exception ex) {
+            r.outln("error sleeping: " + ex.getMessage());
+        }
+        r.outln(LocalDate.now() + " " + LocalTime.now() + "");
+
+        r.outln("<a href='/'>home</a>");
+
         r.out("</body>");
         r.out("</html>");
         r.end();
