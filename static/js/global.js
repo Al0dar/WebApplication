@@ -1,3 +1,5 @@
+// global.js version 1.0.0.02b
+
 function setContent(elementId, content) {
     el = getElement(elementId);
     el.innerHTML = content;
@@ -132,6 +134,34 @@ class Imaginator {
         }
     }
 
+    loadTile() {
+        var img = new Image();
+        img.src = '/static/' + this.filename;
+        var me = this;
+        img.onload = function() {
+            var ptrn = me.ctx.createPattern(img, 'repeat');
+            me.ctx.fillStyle = ptrn;
+            me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.width);
+        }
+    }
+
+    save() {
+        let url = "/static/" + this.filename;
+        this.canvas.toBlob(
+            function(blob) {
+                $.ajax( {
+                   url: url,
+                   type: 'POST',
+                   contentType: 'application/octet-stream',
+                   data: blob,
+                   processData: false
+                } );
+            }
+        );
+    }
+
+    //--------
+
     testDrawing() {
         var pen = this.pen;
         pen.start(5, 5);
@@ -151,35 +181,6 @@ class Imaginator {
             me.ctx.drawImage(img, 0, 0);
         }
         img.src = image64;
-    }
-
-    loadTile() {
-        var img = new Image();
-        img.src = '/static/' + this.filename;
-        var me = this;
-        img.onload = function() {
-            var ptrn = me.ctx.createPattern(img, 'repeat');
-            me.ctx.fillStyle = ptrn;
-            me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.width);
-        }
-    }
-
-    save(blobType) {
-        let url = "/saveimage/" + this.filename;
-        this.canvas.toBlob(
-            //:
-            function(blob) {
-                $.ajax( {
-                   url: url,
-                   type: 'POST',
-                   contentType: 'application/octet-stream',
-                   data: blob,
-                   processData: false
-                } );
-            }
-            //:
-            , this.blobType
-        );
     }
 
 }

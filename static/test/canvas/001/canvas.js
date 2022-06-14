@@ -59,20 +59,20 @@ function onPageLoaded() {
     ctx.putImageData(image, 260, 310);
 
     // post the canvas as an image file (raw data blob)
-    postCanvasToSaveImage(canvas);
+    postCanvas(canvas);
 
 }
 
-function postCanvasToSaveImage(canvas) {
+function postCanvas(canvas) {
 
-    canvas.toBlob(postBlobToSaveImage, 'image/png');
+    canvas.toBlob(postBlob, 'image/png');
 
 }
 
-function postBlobToSaveImage(blob) {
+function postBlob(blob) {
 
     $.ajax( {
-       url: '/saveimage/test/canvas/001/output.png',
+       url: '/static/test/canvas/001/output.png',
        type: 'POST',
        contentType: 'application/octet-stream',
        data: blob,

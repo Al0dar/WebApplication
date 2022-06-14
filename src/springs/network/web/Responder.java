@@ -33,6 +33,10 @@ public class Responder {
         return exchange.getRequestURI().getPath();
     }
 
+    public String getRequestMethod() {
+        return exchange.getRequestMethod().toLowerCase();
+    }
+
     public void startHtml() throws IOException {
         resolveSession();
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);

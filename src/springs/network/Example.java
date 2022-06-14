@@ -20,7 +20,6 @@ public class Example {
         WebServer.listen("/", Example::handleHome);
         WebServer.listen("/favicon.ico", Example::handleFavIcon);
         WebServer.listen("/static/", Example::handleStatic);
-        WebServer.listen("/saveimage/", Example::handleSaveImage);
         WebServer.listen("/info", Example::handleInfo);
         WebServer.listen("/timer/", Example::handleTimer);
         WebServer.start();
@@ -52,27 +51,25 @@ public class Example {
     private static void handleStatic(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleStatic");
         String fileName = Helper.RootPath() + r.getUrl();
-        if (fileName.toLowerCase().trim().endsWith(".fooml")) {
-            r.startHtml();
-            r.out("<html>");
-            r.out("<body>");
-            r.outHtmlFromFooML(fileName);
-            r.out("</body>");
-            r.out("</html>");
-            r.end();
+        String method = r.getRequestMethod();
+        if (method.equals("get")) {
+            if (fileName.toLowerCase().trim().endsWith(".fooml")) {
+                r.startHtml();
+                r.out("<html>");
+                r.out("<body>");
+                r.outHtmlFromFooML(fileName);
+                r.out("</body>");
+                r.out("</html>");
+                r.end();
+            } else
+                r.respondWithFile(fileName);
         }
-        else
-            r.respondWithFile(fileName);
-    }
-
-    private static void handleSaveImage(HttpExchange exchange) {
-        boolean haveWriteAccess = true; // insecure at the moment: URLs need filtering
-        if (haveWriteAccess) {
-            Responder r = WebServer.getResponder(exchange, "Example.handleSaveImage");
-            String rootPath = Helper.RootPath() + "/static/";
-            String prefixToRemove = "/saveimage/";
-            String fileName = rootPath + r.getUrl().substring(prefixToRemove.length());
-            r.saveToFile(fileName);
+        if (method.toLowerCase().equals("post")) {
+            boolean haveWriteAccess = true; // insecure at the moment: URLs need filtering
+            if (haveWriteAccess) {
+                System.out.println("handleStatic fileName:" + fileName);
+                r.saveToFile(fileName);
+            }
         }
     }
 
