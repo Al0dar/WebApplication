@@ -147,6 +147,7 @@ class Imaginator {
 
     save() {
         let url = "/static/" + this.filename;
+        var self = this;
         this.canvas.toBlob(
             function(blob) {
                 $.ajax( {
@@ -154,10 +155,15 @@ class Imaginator {
                    type: 'POST',
                    contentType: 'application/octet-stream',
                    data: blob,
-                   processData: false
+                   processData: false,
+                   success: self.handleSaveSuccess
                 } );
             }
         );
+    }
+
+    handleSaveSuccess(data) {
+        alert("saved");
     }
 
     //--------

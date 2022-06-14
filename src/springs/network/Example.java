@@ -69,6 +69,9 @@ public class Example {
             if (haveWriteAccess) {
                 System.out.println("handleStatic fileName:" + fileName);
                 r.saveToFile(fileName);
+                r.start();
+                r.out("success");
+                r.end();
             }
         }
     }
