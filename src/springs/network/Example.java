@@ -67,7 +67,6 @@ public class Example {
         if (method.toLowerCase().equals("post")) {
             boolean haveWriteAccess = true; // insecure at the moment: URLs need filtering
             if (haveWriteAccess) {
-                System.out.println("handleStatic fileName:" + fileName);
                 r.saveToFile(fileName);
                 r.start();
                 r.out("success");

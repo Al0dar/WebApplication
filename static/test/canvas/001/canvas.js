@@ -71,8 +71,6 @@ function postCanvas(canvas) {
 
 function postBlob(blob) {
 
-
-
     $.ajax( {
        url: '/static/test/canvas/001/output.png',
        type: 'POST',
