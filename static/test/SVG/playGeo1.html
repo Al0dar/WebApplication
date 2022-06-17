@@ -7,54 +7,14 @@
     </head>
     <body>
         <svg width="800" height="1000">
-            <g id="g1" transform="translate(400 400)">
-
-                <g font-size="30" font-family="sans-serif" fill="black" stroke="none" text-anchor="middle">
-                    <text x="-200" y="-300" dy="0">C = A * B</text>
-                </g>
-
-                <path id="axisX" d="M -300 0 l 600 0" stroke="grey" stroke-width="3" fill="none" />
-                <path id="axisY" d="M 0 -300 l 0 600" stroke="grey" stroke-width="3" fill="none" />
-
-                <path id="lineA" d="M 0 0 l 150 150" stroke="red" stroke-width="3" fill="none" />
-                <g stroke="black" stroke-width="3" fill="black">
-                    <circle id="pointA" cx="150" cy="150" r="3" />
-                </g>
-                <g font-size="30" font-family="sans-serif" fill="black" stroke="none" text-anchor="middle">
-                    <text x="150" y="150" dy="30">A</text>
-                </g>
-
-                <path id="lineB" d="M 0 0 l 250 50" stroke="red" stroke-width="3" fill="none" />
-                <g stroke="black" stroke-width="3" fill="black">
-                    <circle id="pointB" cx="250" cy="50" r="3" />
-                </g>
-                <g font-size="30" font-family="sans-serif" fill="black" stroke="none" text-anchor="middle">
-                    <text x="250" y="50" dy="30">B</text>
-                </g>
-
+            <g id="g1" transform="translate(400 400) scale(100)">
                 <g id="svgPlaceholder1"></g>
-
             </g>
         </svg>
         <br/>
         <a href="/">home</a><br/>
         <script>
-            testPopulate();
-            //bind('g1');
-            function bind(id) {
-                o = document.getElementById(id);
-                o.addEventListener('click', onClick);
-                o.addEventListener("mouseover", onMouseOver);
-            }
-            function onClick(e) {
-                o = e.currentTarget;
-                //alert(o.id + ' style: ' + o.getAttribute('style'));
-                o.setAttribute('style', 'fill:grey;stroke:black;stroke-width:2;fill-rule:nonzero;');
-            }
-            function onMouseOver(e) {
-                o = e.currentTarget;
-                o.setAttribute('style', 'fill:pink;stroke:red;stroke-width:5;fill-rule:evenodd;');
-            }
+            setContent('svgPlaceholder1', getTestContent());
         </script>
     </body>
 </html>
