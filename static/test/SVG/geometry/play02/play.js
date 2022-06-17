@@ -3,16 +3,47 @@ function getContent() {
     return thing.content();
 }
 
-class Thing {
+class SVG {
+
+    line(from, to) {
+        var rv = '';
+        rv += '<path ';
+        rv += 'd="M ' + from.x + ' ' + from.y + ' l ' + (to.x - from.x) + ' ' + (to.y - from.y) + '" ';
+        rv += '/>';
+        return rv;
+    }
+
+    circle(centre, radius) {
+        var rv = '';
+        rv += '<circle ';
+        rv += 'cx="' + centre.x + '" cy="' + centre.y + '" r="' + radius + '" ';
+        rv += '/>';
+        return rv;
+    }
+
+    text(position, value) {
+        var rv = '';
+        rv += '<text ';
+        rv += 'x="' + position.x + '" y="' + position.y + '" ';
+        rv += '>';
+        rv += value;
+        rv += '</text>';
+        return rv;
+    }
+
+}
+
+class Thing extends SVG {
 
     constructor() {
+        super();
         var o = this;
 
         o.axisStyle = new Style('grey', '0.03');
         o.axisSize = 3;
         o.origin = new Point(0, 0);
         o.p1 = o.origin.delta(2.1, 1.2);
-        o.s1 = new Style('purple', '0.03', 'blue');
+        o.s1 = new Style('green', '0.03', 'grey');
         o.p2 = o.origin.delta(1.8, -0.9);
         o.s2 = new Style('red', '0.03', 'red');
         o.textStyle = new Style(null, '0.01');
@@ -41,32 +72,6 @@ class Thing {
         rv += o.text(point.delta(0.2, 0), label);
         rv += o.textStyle.end();
         rv += style.end();
-        return rv;
-    }
-
-    line(from, to) {
-        var rv = '';
-        rv += '<path ';
-        rv += 'd="M ' + from.x + ' ' + from.y + ' l ' + (to.x - from.x) + ' ' + (to.y - from.y) + '" ';
-        rv += '/>';
-        return rv;
-    }
-
-    circle(centre, radius) {
-        var rv = '';
-        rv += '<circle ';
-        rv += 'cx="' + centre.x + '" cy="' + centre.y + '" r="' + radius + '" ';
-        rv += '/>';
-        return rv;
-    }
-
-    text(position, value) {
-        var rv = '';
-        rv += '<text ';
-        rv += 'x="' + position.x + '" y="' + position.y + '" ';
-        rv += '>';
-        rv += value;
-        rv += '</text>';
         return rv;
     }
 
