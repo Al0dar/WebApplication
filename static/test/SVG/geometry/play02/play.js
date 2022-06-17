@@ -38,7 +38,6 @@ class Thing extends SVG {
     constructor() {
         super();
         var o = this;
-
         o.axisStyle = new Style('grey', '0.03');
         o.axisSize = 3;
         o.origin = new Point(0, 0);
@@ -57,35 +56,22 @@ class Thing extends SVG {
         rv += o.line(new Point(-o.axisSize, 0), new Point(o.axisSize, 0));
         rv += o.line(new Point(0, -o.axisSize), new Point(0, o.axisSize));
         rv += o.axisStyle.end();
-        rv += o.fancyPoint(o.p1, o.s1, 'P1');
-        rv += o.fancyPoint(o.p2, o.s2, 'P2');
+        rv += o.fancyPoint(o.p1, o.s1, 'P1', o.p1.delta(0.2, 0));
+        rv += o.fancyPoint(o.p2, o.s2, 'P2', o.p2.delta(0.2, 0));
         return rv;
     }
 
-    fancyPoint(point, style, label) {
+    fancyPoint(point, style, label, labelPosition) {
         var o = this;
         var rv = '';
         rv += style.start();
         rv += o.line(o.origin, point);
         rv += o.circle(point, 0.03);
         rv += o.textStyle.start();
-        rv += o.text(point.delta(0.2, 0), label);
+        rv += o.text(labelPosition, label);
         rv += o.textStyle.end();
         rv += style.end();
         return rv;
-    }
-
-}
-
-class Point {
-
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    delta(x, y) {
-        return new Point(this.x + x, this.y + y);
     }
 
 }
@@ -130,3 +116,15 @@ class Style {
 
 }
 
+class Point {
+
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    delta(x, y) {
+        return new Point(this.x + x, this.y + y);
+    }
+
+}
