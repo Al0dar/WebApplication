@@ -1,8 +1,4 @@
-function testPopulate(id) {
-
-}
-
-function getTestContent() {
+function getContent() {
 
     var rv = '';
 
@@ -16,7 +12,7 @@ function getTestContent() {
 
     origin = new Point(0, 0);
 
-    p1 = origin.delta(1.5, 1.2);
+    p1 = origin.delta(2.1, 1.2);
     s1 = new Style('blue', '0.03', 'blue');
 
     p2 = origin.delta(1.8, -0.2);
