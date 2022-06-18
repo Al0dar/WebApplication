@@ -1,23 +1,40 @@
 const Geo = Geometry;
 
+function init() {
+    var o = thing;
+    o.points = {};
+    o.points.A = new Geo.Point();
+    o.points.A.style = new Geo.Style('green', '0.03', 'green');
+    o.points.B = new Geo.Point();
+    o.points.B.style = new Geo.Style('blue', '0.03', 'blue');
+    o.points.C = new Geo.Point();
+    o.points.C.style = new Geo.Style('red', '0.03', 'red');
+}
+
+function update() {
+    var o = thing;
+    var A = o.points.A;
+    var B = o.points.B;
+    var C = o.points.C;
+
+    var angle = 0.02 * frame;
+    A.set(1, 0.5);
+    B.set(Math.sin(angle) * 2, Math.cos(angle));
+    var res = A.add(B);
+    C.set(res.x, res.y);
+
+    setContent('svgPlaceholder1', o.outer());
+    frame++;
+}
+
 class Thing extends Geo.SVG {
 
     constructor() {
         super();
         var o = this;
-
         o.axisStyle = new Geo.Style('grey', '0.03', 'grey');
         o.axisSize = 3;
-
         o.origin = new Geo.Point(0, 0);
-
-        o.p1 = o.origin.delta(1.1, 1.2);
-        o.s1 = new Geo.Style('green', '0.03', 'green');
-        o.p2 = o.origin.delta(1.8, -0.9);
-        o.s2 = new Geo.Style('blue', '0.03', 'blue');
-        o.p3 = o.origin.delta(-1.8, -0.9);
-        o.s3 = new Geo.Style('red', '0.03', 'red');
-
         o.textStyle = new Geo.Style(null, '0.01');
         o.textStyle.setTextStyle(0.2, 'sans-serif', 'middle')
     }
@@ -47,14 +64,14 @@ class Thing extends Geo.SVG {
         rv += o.axisStyle.end();
 
         // fancy points
-        rv += o.fancyPoint(o.p1, o.s1, 'P1');
-        rv += o.fancyPoint(o.p2, o.s2, 'P2');
-        rv += o.fancyPoint(o.p3, o.s3, 'P3');
+        rv += o.fancyPoint(o.points.A, 'A');
+        rv += o.fancyPoint(o.points.B, 'B');
+        rv += o.fancyPoint(o.points.C, 'C');
 
         return rv;
     }
 
-    fancyPoint(point, style, label) {
+    fancyPoint(point, label) {
         var o = this;
         var rv = '';
 
@@ -63,13 +80,13 @@ class Thing extends Geo.SVG {
             labelOffset = -0.1;
         var labelPosition = point.delta(0, labelOffset);
 
-        rv += style.start();
+        rv += point.style.start();
         rv += new Geo.Line(o.origin, point).outer();
         rv += new Geo.Circle(point, 0.03).outer();
         rv += o.textStyle.start();
         rv += new Geo.Text(labelPosition, label).outer();
         rv += o.textStyle.end();
-        rv += style.end();
+        rv += point.style.end();
 
         return rv;
     }

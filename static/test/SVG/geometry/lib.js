@@ -132,6 +132,15 @@ Geometry.Point = class {
         this.y = y;
     }
 
+    set(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    add(p) {
+        return new Geometry.Point(this.x + p.x, this.y + p.y);
+    }
+
     delta(x, y) {
         return new Geometry.Point(this.x + x, this.y + y);
     }
