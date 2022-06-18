@@ -13,13 +13,13 @@ class Thing extends Geo.SVG {
 
         o.p1 = o.origin.delta(1.1, 1.2);
         o.s1 = new Geo.Style('green', '0.03', 'green');
-
         o.p2 = o.origin.delta(1.8, -0.9);
         o.s2 = new Geo.Style('blue', '0.03', 'blue');
+        o.p3 = o.origin.delta(-1.8, -0.9);
+        o.s3 = new Geo.Style('red', '0.03', 'red');
 
         o.textStyle = new Geo.Style(null, '0.01');
         o.textStyle.setTextStyle(0.2, 'sans-serif', 'middle')
-
     }
 
     inner() {
@@ -33,10 +33,8 @@ class Thing extends Geo.SVG {
         for (let n = -3;n <= 3;n++) {
             var px = new Geo.Point(n, 0);
             var py = new Geo.Point(0, n);
-
             rv += new Geo.Circle(px, 0.03).outer();
             rv += new Geo.Circle(new Geo.Point(0, n), 0.03).outer();
-
             if (n != 0) {
                 rv += o.textStyle.start();
                 var pxd = px.delta(0, -0.1);
@@ -45,20 +43,25 @@ class Thing extends Geo.SVG {
                 rv += new Geo.Text(pyd, n).outer();
                 rv += o.textStyle.end();
             }
-
         }
         rv += o.axisStyle.end();
 
         // fancy points
-        rv += o.fancyPoint(o.p1, o.s1, 'P1', o.p1.delta(0.2, 0));
-        rv += o.fancyPoint(o.p2, o.s2, 'P2', o.p2.delta(0.2, 0));
+        rv += o.fancyPoint(o.p1, o.s1, 'P1');
+        rv += o.fancyPoint(o.p2, o.s2, 'P2');
+        rv += o.fancyPoint(o.p3, o.s3, 'P3');
 
         return rv;
     }
 
-    fancyPoint(point, style, label, labelPosition) {
+    fancyPoint(point, style, label) {
         var o = this;
         var rv = '';
+
+        var labelOffset = 0.25;
+        if (point.y < 0)
+            labelOffset = -0.1;
+        var labelPosition = point.delta(0, labelOffset);
 
         rv += style.start();
         rv += new Geo.Line(o.origin, point).outer();

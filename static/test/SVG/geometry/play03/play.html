@@ -15,7 +15,9 @@
         <br/>
         <a href="/">home</a><br/>
         <script>
-            setContent('svgPlaceholder1', new Thing().outer());
+            var thing = new Thing();
+            thing.p3 = new Geo.Point(thing.p1.x + thing.p2.x, thing.p1.y + thing.p2.y);
+            setContent('svgPlaceholder1', thing.outer());
         </script>
     </body>
 </html>
