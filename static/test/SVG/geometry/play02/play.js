@@ -1,21 +1,23 @@
-class Thing extends Geometry.SVG {
+const Geo = Geometry;
+
+class Thing extends Geo.SVG {
 
     constructor() {
         super();
         var o = this;
 
-        o.axisStyle = new Geometry.Style('grey', '0.03');
+        o.axisStyle = new Geo.Style('grey', '0.03');
         o.axisSize = 3;
 
-        o.origin = new Geometry.Point(0, 0);
+        o.origin = new Geo.Point(0, 0);
 
         o.p1 = o.origin.delta(1.1, 1.2);
-        o.s1 = new Geometry.Style('green', '0.03', 'green');
+        o.s1 = new Geo.Style('green', '0.03', 'green');
 
         o.p2 = o.origin.delta(1.8, -0.9);
-        o.s2 = new Geometry.Style('blue', '0.03', 'blue');
+        o.s2 = new Geo.Style('blue', '0.03', 'blue');
 
-        o.textStyle = new Geometry.Style(null, '0.01');
+        o.textStyle = new Geo.Style(null, '0.01');
         o.textStyle.setTextStyle(0.2, 'sans-serif', 'middle')
 
     }
@@ -26,8 +28,8 @@ class Thing extends Geometry.SVG {
 
         // x and y axes
         rv += o.axisStyle.start();
-        rv += new Geometry.Line(new Geometry.Point(-o.axisSize, 0), new Geometry.Point(o.axisSize, 0)).outer();
-        rv += new Geometry.Line(new Geometry.Point(0, -o.axisSize), new Geometry.Point(0, o.axisSize)).outer();
+        rv += new Geo.Line(new Geo.Point(-o.axisSize, 0), new Geo.Point(o.axisSize, 0)).outer();
+        rv += new Geo.Line(new Geo.Point(0, -o.axisSize), new Geo.Point(0, o.axisSize)).outer();
         rv += o.axisStyle.end();
 
         // fancy points
@@ -42,11 +44,11 @@ class Thing extends Geometry.SVG {
         var rv = '';
 
         rv += style.start();
-        rv += new Geometry.Line(o.origin, point).outer();
-        rv += new Geometry.Circle(point, 0.03).outer();
+        rv += new Geo.Line(o.origin, point).outer();
+        rv += new Geo.Circle(point, 0.03).outer();
 
         rv += o.textStyle.start();
-        rv += new Geometry.Text(labelPosition, label).outer();
+        rv += new Geo.Text(labelPosition, label).outer();
         rv += o.textStyle.end();
 
         rv += style.end();
