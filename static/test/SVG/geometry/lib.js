@@ -1,4 +1,6 @@
-class SVG {
+const Geometry = {};
+
+Geometry.SVG = class {
 
     properties() {
         return '';
@@ -24,7 +26,7 @@ class SVG {
 
 }
 
-class Line extends SVG {
+Geometry.Line = class extends Geometry.SVG {
 
     constructor(from, to) {
         super();
@@ -43,7 +45,7 @@ class Line extends SVG {
 
 }
 
-class Circle extends SVG {
+Geometry.Circle = class extends Geometry.SVG {
 
     constructor(centre, radius) {
         super();
@@ -62,7 +64,7 @@ class Circle extends SVG {
 
 }
 
-class Text extends SVG {
+Geometry.Text = class extends Geometry.SVG {
 
     constructor(position, value) {
         super();
@@ -85,7 +87,7 @@ class Text extends SVG {
 
 }
 
-class Style extends SVG {
+Geometry.Style = class extends Geometry.SVG {
 
     constructor(stroke, strokeWidth, fill) {
         super();
@@ -123,7 +125,7 @@ class Style extends SVG {
 
 }
 
-class Point {
+Geometry.Point = class {
 
     constructor(x, y) {
         this.x = x;
@@ -131,7 +133,7 @@ class Point {
     }
 
     delta(x, y) {
-        return new Point(this.x + x, this.y + y);
+        return new Geometry.Point(this.x + x, this.y + y);
     }
 
 }
