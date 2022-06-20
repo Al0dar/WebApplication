@@ -52,15 +52,15 @@ class Thing extends Geo.SVG {
         var o = this;
         var rv = super.inner();
 
-        // x and y axes
-        rv += o.axisStyle.start();
-
+        // key
         rv += o.keyStyle.start();
         var posKey = new Geo.Point(-3, -2.8);
         rv += new Geo.Text(posKey, "C = A + B").outer();
         rv += new Geo.Text(posKey.delta(0, 0.3), "D = A * B").outer();
         rv += o.keyStyle.end();
 
+        // x and y axes
+        rv += o.axisStyle.start();
         rv += new Geo.Line(new Geo.Point(-o.axisSize, 0), new Geo.Point(o.axisSize, 0)).outer();
         rv += new Geo.Line(new Geo.Point(0, -o.axisSize), new Geo.Point(0, o.axisSize)).outer();
         for (let n = -3;n <= 3;n++) {
