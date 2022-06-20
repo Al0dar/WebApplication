@@ -145,4 +145,12 @@ Geometry.Point = class {
         return new Geometry.Point(this.x + x, this.y + y);
     }
 
+    muli(p) { // multiply with point p, treating both points as complex numbers
+        var rv = new Geometry.Point(
+            (this.x * p.x) - (this.y * p.y),
+            (this.x * p.y) + (this.y * p.x)
+        );
+        return rv;
+    }
+
 }
