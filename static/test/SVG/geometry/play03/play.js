@@ -18,6 +18,7 @@ function update() {
 
     setContent('svgPlaceholder1', o.outer());
     frame++;
+
 }
 
 class Thing extends Geo.SVG {
