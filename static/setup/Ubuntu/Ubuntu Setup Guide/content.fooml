@@ -43,3 +43,5 @@ Ubuntu setup guide : v1.0.03.01a
 
     # cd /WebApplication
     # git pull
+
+<a href="/static/test/index.html">index</a>

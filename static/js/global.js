@@ -163,7 +163,7 @@ class Imaginator {
     }
 
     handleSaveSuccess(data) {
-        alert("saved : " + data);
+        alert("save : " + data);
     }
 
     //--------
