@@ -1,3 +1,3 @@
 # WebApplication
 
-A Java driven web application.
+A basic Java driven web service / application.
