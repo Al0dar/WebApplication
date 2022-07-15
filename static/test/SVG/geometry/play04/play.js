@@ -6,7 +6,7 @@ function update() {
     var A = o.points.A;
 
     var angle = 0.02 * frame;
-    A.set(1, 0.5);
+    A.set(Math.sin(angle) * 2, -Math.cos(angle));
 
     setContent('svgPlaceholder1', o.outer());
     frame++;
