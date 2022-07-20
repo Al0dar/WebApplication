@@ -10,7 +10,7 @@ function update() {
 
     var angle = 0.02 * frame;
     A.set(1, 0.5);
-    B.set(Math.sin(angle) * 2, Math.cos(angle));
+    B.set(Math.sin(angle) * 2, -Math.cos(angle));
     var resC = A.add(B);
     C.set(resC.x, resC.y);
     var resD = A.muli(B);

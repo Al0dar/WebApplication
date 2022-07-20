@@ -2,6 +2,7 @@ package springs.network;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.*;
 
@@ -45,25 +46,28 @@ public class Example {
 
     private static void handleFavIcon(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleFavIcon");
-        r.respondWithFile(Helper.RootPath() + "/static/images/favicon.png");
+        File file = new File(Helper.RootPath() + "/static/images/favicon.png");
+        r.respondWithFile(file);
     }
 
     private static void handleStatic(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleStatic");
         String fileName = Helper.RootPath() + r.getUrl();
-        String method = r.getRequestMethod();
+        String method = r.getRequestMethod().toLowerCase();
         if (method.equals("get")) {
-            if (fileName.toLowerCase().trim().endsWith(".fooml")) {
-                r.startHtml();
-                r.out("<html>");
-                r.out("<body>");
-                r.outHtmlFromFooML(fileName);
-                r.out("</body>");
-                r.out("</html>");
-                r.end();
-            } else
-                r.respondWithFile(fileName);
+            File file = new File(fileName);
+            if (file != null) {
+                if (file.isDirectory()) {
+                    respondStaticFolder(r, file);
+                } else {
+                    if (fileName.toLowerCase().trim().endsWith(".fooml")) {
+                        respondStaticFooml(r, fileName);
+                    } else
+                        respondStaticFile(r, file);
+                }
+            }
         }
+
         if (method.toLowerCase().equals("post")) {
             boolean haveWriteAccess = true; // insecure at the moment: URLs need filtering
             if (haveWriteAccess) {
@@ -73,6 +77,36 @@ public class Example {
                 r.end();
             }
         }
+    }
+
+    private static void respondStaticFile(Responder r, File file) throws IOException {
+        r.respondWithFile(file);
+    }
+
+    private static void respondStaticFolder(Responder r, File file) throws IOException {
+        r.startHtml();
+        r.out("<html>");
+        r.out("<body>");
+        String[] l = file.list();
+        String name = file.getName();
+        for (String s : l) {
+            r.out("<a href='" + name + "/" + s + "'>");
+            r.out(s);
+            r.outln("</a>");
+        }
+        r.out("</body>");
+        r.out("</html>");
+        r.end();
+    }
+
+    private static void respondStaticFooml(Responder r, String fileName) throws IOException {
+        r.startHtml();
+        r.out("<html>");
+        r.out("<body>");
+        r.outHtmlFromFooML(fileName);
+        r.out("</body>");
+        r.out("</html>");
+        r.end();
     }
 
     private static void handleInfo(HttpExchange exchange) throws IOException {

@@ -1,16 +1,17 @@
 const Geo = Geometry;
 
+function start() {
+    thing = new Thing();
+    frame = 0;
+    window.setInterval(update, 20);
+}
+
 function update() {
-    var o = thing;
-
-    var A = o.points.A;
-
+    var A = thing.points.A;
     var angle = 0.02 * frame;
     A.set(Math.sin(angle) * 2, -Math.cos(angle));
-
-    setContent('svgPlaceholder1', o.outer());
+    setContent('svgPlaceholder1', thing.outer());
     frame++;
-
 }
 
 class Thing extends Geo.SVG {
@@ -27,9 +28,6 @@ class Thing extends Geo.SVG {
         o.textStyle = new Geo.Style(null, '0.01');
         o.textStyle.setTextStyle(0.2, 'sans-serif', 'middle')
 
-//        o.keyStyle = new Geo.Style(null, '0.01');
-//        o.keyStyle.setTextStyle(0.2, 'sans-serif', 'left')
-
         o.points = {};
         o.points.A = new Geo.Point();
         o.points.A.style = new Geo.Style('red', '0.03', 'red');
@@ -37,7 +35,7 @@ class Thing extends Geo.SVG {
         // house
         o.houseStyle = new Geo.Style('green', '0.03', 'green');
         o.houseCopyStyle = new Geo.Style('blue', '0.03', 'blue');
-        var p0 = new Geo.Point(-1, 1); // clockwise from bottom left point
+        var p0 = new Geo.Point(-1, 1); // clockwise from bottom left
         var p1 = new Geo.Point(-1, -1);
         var p2 = new Geo.Point(0, -2);
         var p3 = new Geo.Point(1, -1);

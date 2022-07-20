@@ -62,10 +62,18 @@ public class Responder {
         responseBody.close();
     }
 
-    public void respondWithFile(String fileName) throws IOException {
+    public void respondWithFolder(File folder) {
+
+
+
+    }
+
+    public void respondWithFile(File file) throws IOException {
+
+        String name = file.getName().toLowerCase();
 
         // set the content type within the response headers
-        if (fileName.toLowerCase().endsWith(".svg")) {
+        if (name.endsWith(".svg")) {
             exchange.getResponseHeaders().put("Content-Type", Collections.singletonList("image/svg+xml"));
         }
 
@@ -74,7 +82,6 @@ public class Responder {
 
         // try to send the file contents within the response body
         try {
-            File file = new File(fileName);
             Files.copy(file.toPath(), responseBody);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -82,7 +89,6 @@ public class Responder {
 
         // close the response body
         responseBody.close();
-
     }
 
     public void outHtmlFromFooML(String fileName) throws IOException {
