@@ -54,6 +54,8 @@ public class Example {
         Responder r = WebServer.getResponder(exchange, "Example.handleStatic");
         String fileName = Helper.RootPath() + r.getUrl();
         String method = r.getRequestMethod().toLowerCase();
+
+        // method : get
         if (method.equals("get")) {
             File file = new File(fileName);
             if (file != null) {
@@ -68,7 +70,8 @@ public class Example {
             }
         }
 
-        if (method.toLowerCase().equals("post")) {
+        // method : post
+        if (method.equals("post")) {
             boolean haveWriteAccess = true; // insecure at the moment: URLs need filtering
             if (haveWriteAccess) {
                 r.saveToFile(fileName);
@@ -77,18 +80,19 @@ public class Example {
                 r.end();
             }
         }
+
     }
 
     private static void respondStaticFile(Responder r, File file) throws IOException {
         r.respondWithFile(file);
     }
 
-    private static void respondStaticFolder(Responder r, File file) throws IOException {
+    private static void respondStaticFolder(Responder r, File folder) throws IOException {
         r.startHtml();
         r.out("<html>");
         r.out("<body>");
-        String[] l = file.list();
-        String name = file.getName();
+        String name = folder.getName();
+        String[] l = folder.list();
         for (String s : l) {
             r.out("<a href='" + name + "/" + s + "'>");
             r.out(s);
