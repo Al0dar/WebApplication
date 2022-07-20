@@ -62,12 +62,6 @@ public class Responder {
         responseBody.close();
     }
 
-    public void respondWithFolder(File folder) {
-
-
-
-    }
-
     public void respondWithFile(File file) throws IOException {
 
         String name = file.getName().toLowerCase();
@@ -84,7 +78,8 @@ public class Responder {
         try {
             Files.copy(file.toPath(), responseBody);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println("* error : " + ex.toString());
+            // ex.printStackTrace();
         }
 
         // close the response body
