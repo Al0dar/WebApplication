@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JavaScript</title>
+        <script src="/static/js/global.js"></script>
+    </head>
+    <body>
+        This is a test to see if JavaScript can generate and call its own code dynamically.<br/>
+        <br/>
+        <div id="scriptPlaceholder1"/>
+        <div id="textPlaceholder1">hello</div>
+        <a href="/static/test/index.html">index</a>
+        <script>
+            lt = "<";
+            gt = ">";
+            s = lt + "script" + gt;
+            s += "function f1(x) { return x * x; }";
+            s += lt + "/script" + gt;
+            // alert(s);
+            setContent('scriptPlaceholder1', s);
+            r = f1(10);
+            setContent('textPlaceholder1', f1(10));
+        </script>
+    </body>
+</html>

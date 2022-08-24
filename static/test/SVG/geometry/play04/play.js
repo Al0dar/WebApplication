@@ -1,5 +1,3 @@
-const Geo = Geometry;
-
 function start() {
     thing = new Thing();
     frame = 0;
@@ -10,7 +8,7 @@ function update() {
     var A = thing.points.A;
     var angle = 0.02 * frame;
     A.set(Math.sin(angle) * 2, -Math.cos(angle));
-    setContent('svgPlaceholder1', thing.outer());
+
     frame++;
 }
 
@@ -75,6 +73,7 @@ class Thing extends Geo.SVG {
             if (i2 > 4) i2 = 0;
             var p = o.house[i];
             var p2 = o.house[i2];
+            //
             rv += new Geo.Circle(p, 0.03).outer();
             rv += new Geo.Line(p, p2).outer();
         }
@@ -87,8 +86,10 @@ class Thing extends Geo.SVG {
             if (i2 > 4) i2 = 0;
             var p = o.house[i];
             var p2 = o.house[i2];
+            //
             var pt = p.muli(o.points.A);
             var pt2 = p2.muli(o.points.A);
+            //
             rv += new Geo.Circle(pt, 0.03).outer();
             rv += new Geo.Line(pt, pt2).outer();
         }
@@ -104,10 +105,10 @@ class Thing extends Geo.SVG {
         var o = this;
         var rv = '';
 
-        var labelOffset = 0.25;
+        var labelOffsetY = 0.25;
         if (point.y < 0)
-            labelOffset = -0.1;
-        var labelPosition = point.delta(0, labelOffset);
+            labelOffsetY = -0.1;
+        var labelPosition = point.delta(0, labelOffsetY);
 
         rv += point.style.start();
         rv += new Geo.Line(o.origin, point).outer();
