@@ -45,7 +45,7 @@ function onPageLoaded() {
 
     // draw image1 onto the canvas
     var img = getElement("image1");
-    ctx.drawImage(img, 0, 0);
+    ctx.drawImage(img, -200, 0);
 
     // mess around with raw RGBA data
     var image = ctx.getImageData(50, 50, 400, 300);
