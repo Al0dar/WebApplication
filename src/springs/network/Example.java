@@ -5,7 +5,9 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.File;
 import java.io.IOException;
 import java.time.*;
+import java.util.ArrayList;
 
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 import springs.network.web.*;
 
 public class Example {
@@ -23,6 +25,7 @@ public class Example {
         WebServer.listen("/static/", Example::handleStatic);
         WebServer.listen("/info", Example::handleInfo);
         WebServer.listen("/timer/", Example::handleTimer);
+        WebServer.listen("/reverse", Example::handleReverse);
         WebServer.start();
     }
 
@@ -37,6 +40,7 @@ public class Example {
         r.outln("Hello World");
         r.outln("");
         r.outln("<a href='/info'>information</a>");
+        r.outln("<a href='/reverse'>reverse</a>");
         r.outln("<a href='/static/test/index.html'>static test</a>");
         r.outln("<a href='/timer/x'>timer</a>");
         r.out("</body>");
@@ -151,6 +155,59 @@ public class Example {
             r.outln("error sleeping: " + ex.getMessage());
         }
         r.outln(LocalDate.now() + " " + LocalTime.now() + "");
+
+        r.outln("<a href='/'>home</a>");
+
+        r.out("</body>");
+        r.out("</html>");
+        r.end();
+    }
+
+
+
+    private static void handleReverse(HttpExchange exchange) throws IOException {
+        Responder r = WebServer.getResponder(exchange, "Example.handleReverse");
+
+        PlanActions actions = new PlanActions();
+        actions.add(new PlanAction("drive to H house", 30));
+        actions.add(new PlanAction("say hello to H and Pebble", 5));
+        actions.add(new PlanAction("open Google Maps on phone, and search for Snow Hill Car Park", 5));
+        actions.add(new PlanAction("drive from H house to Snow Hill Car Park", 40));
+        actions.add(new PlanAction("park in Snow Hill Car Park", 10));
+        actions.add(new PlanAction("eat", 60));
+        actions.add(new PlanAction("walk to and leave Snow Hill Car Park", 15));
+        actions.add(new PlanAction("drive to and park in Newhall St Car Park, Birmingham B3 1SW", 15));
+        actions.add(new PlanAction("walk to Church", 15));
+        actions.add(new PlanAction("enter Church", 5));
+        actions.add(new PlanAction("concert starts", 0));
+
+        r.startHtml();
+        r.out("<html><head><title>Reverse</title></head>");
+        r.out("<body>");
+        r.outln("<b>Reverse</b>");
+
+        r.outln("it is now : " + LocalDate.now() + " " + LocalTime.now());
+        r.outln();
+
+        r.outln("<u>actions</u>");
+        PlanActions reverseActions = new PlanActions();
+        for (PlanAction a : actions) {
+            r.outln("<b>" + a.Name + " - <i><u>" + a.Minutes + " minutes</u></i></b>");
+            reverseActions.add(0, a);
+        }
+        r.outln();
+
+        r.outln("<u>reverse actions with timings</u>");
+        LocalDate date = LocalDate.of (2022, 8, 27);
+        LocalTime time = LocalTime.of (18, 30);
+
+        r.outln("target time : " + date + " " + time);
+
+        for (PlanAction a : reverseActions) {
+            time = time.minusMinutes(a.Minutes);
+            r.out("<b>" + a.Name + " - <i>" + a.Minutes + " minutes</i></b> => ");
+            r.outln(date + " <u>" + time + "</u>");
+        }
 
         r.outln("<a href='/'>home</a>");
 

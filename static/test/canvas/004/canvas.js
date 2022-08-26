@@ -51,9 +51,37 @@ function onPageLoaded() {
     var image = ctx.getImageData(50, 50, 400, 300);
     var imageData = image.data,
     length = imageData.length;
-    for(var i = 3; i < length; i += 4){
-        if(imageData[i - 2] > 100)
-            imageData[i] = 100;
+    var scale = 1;
+    for(var i = 0; i < length; i += 4){
+
+        // input colour RGBA
+        var inR = imageData[i + 0];
+        var inG = imageData[i + 1];
+        var inB = imageData[i + 2];
+        var inA = imageData[i + 3];
+
+        var distanceR = Math.abs(100 - inR);
+
+        var outR = inR * scale;
+        var outG = inG * scale;
+        var outB = inB * scale;
+        var outA = inA;
+
+        // clamp to allowed range 0 to 255 (1 byte)
+        if (outR < 0) outR = 0;
+        else if (outR > 255) outR = 255;
+        if (outG < 0) outG = 0;
+        else if (outG > 255) outG = 255;
+        if (outB < 0) outB = 0;
+        else if (outB > 255) outB = 255;
+        if (outA < 0) outA = 0;
+        else if (outA > 255) outA = 255;
+
+        imageData[i + 0] = outR;
+        imageData[i + 1] = outG;
+        imageData[i + 2] = outB;
+        imageData[i + 3] = outA;
+
     }
     image.data = imageData;
     ctx.putImageData(image, 50, 50);

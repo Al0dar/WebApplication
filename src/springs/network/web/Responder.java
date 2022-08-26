@@ -53,6 +53,10 @@ public class Responder {
         responseBody.write(outSuffix.getBytes());
     }
 
+    public void outln() throws IOException {
+        outln("");
+    }
+
     public void outln(String s) throws IOException {
         responseBody.write(s.getBytes());
         responseBody.write(outlnSuffix.getBytes());
