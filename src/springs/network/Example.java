@@ -173,11 +173,11 @@ public class Example {
         actions.add(new PlanAction("say hello to H and Pebble", 5));
         actions.add(new PlanAction("open Google Maps on phone, and search for Snow Hill Car Park", 5));
         actions.add(new PlanAction("drive from H house to Snow Hill Car Park", 30));
-        actions.add(new PlanAction("park in Snow Hill Car Park and walk to ", 10));
+        actions.add(new PlanAction("park in Snow Hill Car Park and walk to Great Western Arcade", 10));
         actions.add(new PlanAction("eat", 60));
-        actions.add(new PlanAction("walk to and leave Snow Hill Car Park", 15));
-        actions.add(new PlanAction("drive to and park in Newhall St Car Park, Birmingham B3 1SW", 15));
-        actions.add(new PlanAction("walk to Church", 15));
+        actions.add(new PlanAction("walk to and leave Snow Hill Car Park", 10));
+        actions.add(new PlanAction("drive to and park in Newhall St Car Park, Birmingham B3 1SW", 10));
+        actions.add(new PlanAction("walk to Church", 10));
         actions.add(new PlanAction("enter Church", 5));
         actions.add(new PlanAction("concert starts", 0));
 
