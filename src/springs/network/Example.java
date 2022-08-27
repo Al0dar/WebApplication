@@ -169,11 +169,11 @@ public class Example {
         Responder r = WebServer.getResponder(exchange, "Example.handleReverse");
 
         PlanActions actions = new PlanActions();
-        actions.add(new PlanAction("drive to H house", 30));
+        actions.add(new PlanAction("drive to H house B46 3FJ", 30));
         actions.add(new PlanAction("say hello to H and Pebble", 5));
         actions.add(new PlanAction("open Google Maps on phone, and search for Snow Hill Car Park", 5));
-        actions.add(new PlanAction("drive from H house to Snow Hill Car Park", 40));
-        actions.add(new PlanAction("park in Snow Hill Car Park", 10));
+        actions.add(new PlanAction("drive from H house to Snow Hill Car Park", 30));
+        actions.add(new PlanAction("park in Snow Hill Car Park and walk to ", 10));
         actions.add(new PlanAction("eat", 60));
         actions.add(new PlanAction("walk to and leave Snow Hill Car Park", 15));
         actions.add(new PlanAction("drive to and park in Newhall St Car Park, Birmingham B3 1SW", 15));
@@ -186,28 +186,29 @@ public class Example {
         r.out("<body>");
         r.outln("<b>Reverse</b>");
 
-        r.outln("it is now : " + LocalDate.now() + " " + LocalTime.now());
-        r.outln();
 
-        r.outln("<u>actions</u>");
-        PlanActions reverseActions = new PlanActions();
-        for (PlanAction a : actions) {
-            r.outln("<b>" + a.Name + " - <i><u>" + a.Minutes + " minutes</u></i></b>");
-            reverseActions.add(0, a);
-        }
-        r.outln();
-
-        r.outln("<u>reverse actions with timings</u>");
         LocalDate date = LocalDate.of (2022, 8, 27);
         LocalTime time = LocalTime.of (18, 30);
 
+        r.outln();
         r.outln("target time : " + date + " " + time);
+        r.outln();
+
+        PlanActions reverseActions = new PlanActions();
+        for (PlanAction a : actions)
+            reverseActions.add(0, a);
+
+        ArrayList<String> strings = new ArrayList<>();
 
         for (PlanAction a : reverseActions) {
             time = time.minusMinutes(a.Minutes);
-            r.out("<b>" + a.Name + " - <i>" + a.Minutes + " minutes</i></b> => ");
-            r.outln(date + " <u>" + time + "</u>");
+            strings.add(0, "<u>" + time + "</u> <b>" + a.Name + " - <i>" + a.Minutes + " minutes</i></b>");
         }
+
+        for (String s : strings) {
+            r.outln(s);
+        }
+        r.outln();
 
         r.outln("<a href='/'>home</a>");
 
