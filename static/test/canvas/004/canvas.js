@@ -1,3 +1,5 @@
+
+
 function onPageLoading() {
 
     var canvas = getElement("canvas1");
@@ -5,36 +7,18 @@ function onPageLoading() {
 
     ctx.save();
 
-    ctx.fillStyle = "#ff00ff";
-    ctx.fillRect(0,0,250,250);
-    ctx.fillStyle = "#ffff00";
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0,0,500,500);
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(250, 0, 250, 250);
 
-    var grd = ctx.createLinearGradient(0, 250, 250, 250);
-    grd.addColorStop(0, "red");
+    var grd = ctx.createLinearGradient(0, 0, 500, 500);
+    grd.addColorStop(0, "black");
     grd.addColorStop(1, "white");
     ctx.fillStyle = grd;
-    ctx.fillRect(0, 250, 250, 250);
-
-    var grd2 = ctx.createRadialGradient(250, 250, 50, 250, 250, 200);
-    grd2.addColorStop(0, "red");
-    grd2.addColorStop(1, "white");
-    ctx.fillStyle = grd2;
-    ctx.fillRect(250, 250, 250, 250);
+    ctx.fillRect(0, 0, 500, 500);
 
     ctx.restore();
-
-    ctx.moveTo(0, 0);
-    ctx.lineTo(125, 125);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(125, 125, 40, 0, 2 * Math.PI);
-    ctx.stroke();
-
-    ctx.font = "30px Arial";
-    ctx.fillText("Hello World", 260, 280);
-    ctx.strokeText("Stroke Text", 260, 30);
 
 }
 
@@ -45,13 +29,27 @@ function onPageLoaded() {
 
     // draw image1 onto the canvas
     var img = getElement("image1");
-    ctx.drawImage(img, -200, 0);
+    ctx.drawImage(img, -0, 0);
+
+    var dict = {};
+
+//    dict["000000"] = "black";
+//    dict["888888"] = "grey";
+//    dict["ffffff"] = "white";
+//    var x1 = dict["888888"];
+//    for (const [key, value] of Object.entries(dict)) {
+//        var x = key;
+//        var y = value;
+//    }
+//    var foo1 = dict["notakey"];
+//    var flag1 = (dict["notakey"] == undefined);
+//    var flag2 = (dict["000000"] == undefined);
 
     // mess around with raw RGBA data
-    var image = ctx.getImageData(50, 50, 400, 300);
+    var image = ctx.getImageData(0, 0, 200, 340);
     var imageData = image.data,
     length = imageData.length;
-    var scale = 1;
+    var scale = 1.2;
     for(var i = 0; i < length; i += 4){
 
         // input colour RGBA
@@ -60,7 +58,26 @@ function onPageLoaded() {
         var inB = imageData[i + 2];
         var inA = imageData[i + 3];
 
-        var distanceR = Math.abs(100 - inR);
+        // convert to hex values
+        var hexR = inR.toString(16);
+        var hexG = inG.toString(16);
+        var hexB = inB.toString(16);
+
+        // combine RGB hex as hexKey
+        var hexKey = hexR + hexG + hexB;
+
+        // create or increment dictionary count, where key is hexKey
+        if(dict[hexKey] == undefined)
+            dict[hexKey] = 1;       // create, starting at 1
+        else
+            dict[hexKey] += 1;      // increment
+
+        // examples of converting from hex back to integer
+        var valR = parseInt(hexR, 16);
+        var valG = parseInt(hexG, 16);
+        var valB = parseInt(hexB, 16);
+
+        // var distanceR = Math.abs(100 - inR);
 
         var outR = inR * scale;
         var outG = inG * scale;
@@ -83,8 +100,32 @@ function onPageLoaded() {
         imageData[i + 3] = outA;
 
     }
+    var sortedDict = {};
+    var sizeN = 200;
+    for (var n = 0; n < sizeN; n++) {
+        var highKey = "";
+        var highValue = 0;
+        for (const [key, value] of Object.entries(dict)) {
+            if (highValue < value) {
+                highKey = key;
+                highValue = value;
+                dict[key] = 0;
+            }
+        }
+        sortedDict[n] = { hex : highKey, n : highValue };
+    }
+
+    var s = "";
+    for (var n = 0; n < sizeN; n++) {
+        var kv = sortedDict[n];
+        s += "<span style='background-color: #" + kv.hex + ";'>";
+        s += kv.hex + " =&gt; " + kv.n + " <br/>";
+        s += "</span>";
+    }
+    setContent("colours", s);
+
     image.data = imageData;
-    ctx.putImageData(image, 50, 50);
+    ctx.putImageData(image, 200, 50);
 
     // post the canvas as an image file (raw data blob)
     postCanvas(canvas);

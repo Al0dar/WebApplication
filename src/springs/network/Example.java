@@ -186,7 +186,6 @@ public class Example {
         r.out("<body>");
         r.outln("<b>Reverse</b>");
 
-
         LocalDate date = LocalDate.of (2022, 8, 27);
         LocalTime time = LocalTime.of (18, 30);
 
