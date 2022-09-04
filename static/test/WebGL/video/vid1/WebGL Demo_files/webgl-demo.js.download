@@ -99,7 +99,8 @@ function main() {
   const texture = initTexture(gl);
 
   //const video = setupVideo("/static/media/vid/Clean Slate by Conspiracy (Revision Online 2021 PC 64K Intro Compo).mp4");
-  const video = setupVideo("/static/media/vid/VX2 by Spectrals (Revision Online 2020 PC Demo Compo).mp4");
+  //const video = setupVideo("/static/media/vid/VX2 by Spectrals (Revision Online 2020 PC Demo Compo).mp4");
+  const video = setupVideo("/static/media/vid/Rupture by ASD (FullHD 1080p demoscene demo 2009).mp4");
 
   var then = 0;
 
