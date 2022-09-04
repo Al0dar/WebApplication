@@ -11,6 +11,8 @@ function main() {
   const canvas = document.querySelector("#glcanvas");
   const gl = canvas.getContext("webgl");
 
+//  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
   // If we don't have a GL context, give up now
 
   if (!gl) {
@@ -63,6 +65,8 @@ function main() {
       highp vec4 texelColor = texture2D(uSampler, vTextureCoord);
 
       gl_FragColor = vec4(texelColor.rgb * vLighting, texelColor.a);
+      gl_FragColor.a = 0.8;
+
     }
   `;
 
@@ -100,7 +104,12 @@ function main() {
 
   //const video = setupVideo("/static/media/vid/Clean Slate by Conspiracy (Revision Online 2021 PC 64K Intro Compo).mp4");
   //const video = setupVideo("/static/media/vid/VX2 by Spectrals (Revision Online 2020 PC Demo Compo).mp4");
-  const video = setupVideo("/static/media/vid/Rupture by ASD (FullHD 1080p demoscene demo 2009).mp4");
+  //const video = setupVideo("/static/media/vid/Rupture by ASD (FullHD 1080p demoscene demo 2009).mp4");
+  //const video = setupVideo("/static/media/vid/Return by Rebels & Calodox (1st @ Evoke 2022 PC Demo Compo).mp4");
+
+  const video = setupVideo("/static/media/vid/VX2 by Spectrals.mp4");
+  //const video = setupVideo("/static/media/vid/Gorillaz - Feel Good Inc.mp4");
+  //const video = setupVideo("/static/media/vid/isolated.mp4");
 
   var then = 0;
 
@@ -179,6 +188,7 @@ function initBuffers(gl) {
   // operations to from here out.
 
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
 
   // Now create an array of positions for the cube.
 
@@ -426,6 +436,9 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   gl.clearDepth(1.0); // Clear everything
   gl.enable(gl.DEPTH_TEST); // Enable depth testing
   gl.depthFunc(gl.LEQUAL); // Near things obscure far things
+
+gl.enable(gl.BLEND);
+gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
   // Clear the canvas before we start drawing on it.
 
