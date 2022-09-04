@@ -101,7 +101,7 @@ function onPageLoaded() {
 
     }
     var sortedDict = {};
-    var sizeN = 200;
+    var sizeN = 500;
     for (var n = 0; n < sizeN; n++) {
         var highKey = "";
         var highValue = 0;
