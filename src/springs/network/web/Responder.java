@@ -6,8 +6,10 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.LongAdder;
 
 import springs.network.web.session.*;
 
@@ -120,6 +122,102 @@ public class Responder {
         } catch (Exception ex) {
             System.out.println("?:" + ex.toString());
         }
+    }
+
+    public void convertFile_WebKitFormBoundary(String fromFileName, String toFileName) {
+        try {
+            File fromFile = new File(fromFileName);
+            FileInputStream inputStream = new FileInputStream(fromFile);
+
+            Long fileSize = fromFile.length();
+            System.out.println("file size:" + fileSize);
+
+            File toFile = new File(toFileName);
+            toFile.createNewFile();
+            FileOutputStream outputStream = new FileOutputStream(toFile);
+
+            LongAdder bytesReadCount = new LongAdder();
+
+            // read first 4 lines
+            for (int i=0; i<4; i++) {
+                String line = readln(inputStream, bytesReadCount);
+            }
+            System.out.println("bytesReadCount:" + bytesReadCount.toString());
+
+            {
+                long bytesRemaining = fileSize - bytesReadCount.longValue();
+                bytesRemaining -= 46;
+                System.out.println("bytesRemaining:" + bytesRemaining);
+
+                int bufferSize = 16 * 1024;
+                byte[] buffer = new byte[bufferSize];
+                boolean stay = true;
+                while (stay) {
+
+                    int bytesRead = inputStream.read(buffer);
+                    if (bytesRead > 0) {
+
+                        int bytesToOutput = bytesRead;
+                        if (bytesToOutput > bytesRemaining) {
+                            bytesToOutput = (int)bytesRemaining;
+                            stay = false;
+                        }
+                        outputStream.write(buffer, 0, bytesToOutput);
+                        bytesRemaining -= bytesRead;
+
+                    } else {
+                        stay = false; // end of stream
+                    }
+
+                }
+            }
+
+            outputStream.close();
+
+        } catch (Exception ex) {
+            System.out.println("?:" + ex.toString());
+        }
+    }
+
+    private String readln(FileInputStream inputStream, LongAdder outBytesReadCount) throws IOException {
+        // return the next line of text from the input stream
+        String line = "";
+
+        boolean was_nl1 = false;
+        boolean was_nl2 = false;
+
+        boolean stay = true;
+        while (stay) { // until we've read a line or reached the end
+            byte[] buffer = new byte[1];
+            int bytesRead = inputStream.read(buffer); // todo: check bytesRead?
+            if (bytesRead == 1) {
+
+                outBytesReadCount.add(1);
+
+                byte b = buffer[0];
+                boolean is_nl1 = (b == 13);
+                boolean is_nl2 = (b == 10);
+                boolean isEndOfLine = false;
+                if (is_nl1) {
+                    if (was_nl2)
+                        isEndOfLine = true;
+                } else if (is_nl2) {
+                    if (was_nl1)
+                        isEndOfLine = true;
+                } else {
+                    line += (char)b;
+                }
+                if (isEndOfLine) {
+                    stay = false; // finished reading line
+                }
+                was_nl1 = is_nl1;
+                was_nl2 = is_nl2;
+            } else { // end of input stream
+                stay = false;
+            }
+        }
+
+        return line;
     }
 
     public String getRequestCookie(String key) {

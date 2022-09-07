@@ -23,6 +23,7 @@ public class Example {
         WebServer.listen("/", Example::handleHome);
         WebServer.listen("/favicon.ico", Example::handleFavIcon);
         WebServer.listen("/static/", Example::handleStatic);
+        WebServer.listen("/upload/", Example::handleUpload);
         WebServer.listen("/info", Example::handleInfo);
         WebServer.listen("/timer/", Example::handleTimer);
         WebServer.listen("/reverse", Example::handleReverse);
@@ -84,6 +85,27 @@ public class Example {
                 r.end();
             }
         }
+
+    }
+
+    private static void handleUpload(HttpExchange exchange) throws IOException {
+        Responder r = WebServer.getResponder(exchange, "Example.handleStatic");
+        //String fileName = Helper.RootPath() + r.getUrl();
+        String method = r.getRequestMethod().toLowerCase();
+
+//        if (method.equals("post")) {
+            boolean haveWriteAccess = true; // insecure at the moment: URLs need filtering
+            if (haveWriteAccess) {
+                String fileName = "../WebApplication_Private/upload/file01.bit";
+                r.saveToFile(fileName);
+                String toFileName = "../WebApplication_Private/upload/converted01.bit";
+                r.convertFile_WebKitFormBoundary(fileName, toFileName);
+                r.start();
+                r.out("converted " + fileName);
+                r.out(" to " + toFileName);
+                r.end();
+            }
+//        }
 
     }
 
@@ -162,8 +184,6 @@ public class Example {
         r.out("</html>");
         r.end();
     }
-
-
 
     private static void handleReverse(HttpExchange exchange) throws IOException {
         Responder r = WebServer.getResponder(exchange, "Example.handleReverse");
