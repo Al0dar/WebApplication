@@ -165,188 +165,113 @@ function setupVideo(url) {
 }
 
 function configureThang(o) {
-
     o.positions = [];
-    o.posCount = 0;
     o.vertexNormals = [];
     o.textureCoordinates = [];
     o.indices = [];
     o.faceCount = 0;
+    for(x = -2;x <= 2;x++) {
+        for(y = -2;y <= 2;y++) {
+            pushCube(o, x * 1, y * 1, 0, 0.4);
+            pushCube(o, x * 1, y * 1, 0, 0.4);
+            pushCube(o, x * 1, y * 1, 0, 0.4);
+        }
+    }
+}
 
-    // Front
-    {
-        o.positions.push(
-            -1.0, -1.0, 1.0,
-             1.0, -1.0, 1.0,
-             1.0,  1.0, 1.0,
-            -1.0,  1.0, 1.0,
-        );
-        o.posCount += 4;
-        o.vertexNormals.push(
-            0.0, 0.0, 1.0,
-            0.0, 0.0, 1.0,
-            0.0, 0.0, 1.0,
-            0.0, 0.0, 1.0,
-        );
-        o.textureCoordinates.push(
-            1.0, 0.0,
-            0.0, 0.0,
-            0.0, 1.0,
-            1.0, 1.0,
-        );
+function pushCube(o, cx, cy, cz, size) {
 
-        var ip = o.posCount - 4;
-        o.indices.push(
-            ip + 0, ip + 1, ip + 2,
-            ip + 0, ip + 2, ip + 3,
-        );
-        o.faceCount += 2;
+    // texture coordinates (same per face)
+    const t = [[1.0, 0.0], [0.0, 0.0], [0.0, 1.0], [1.0, 1.0]];
+
+    { // Front
+        const v0 = [cx - size, cy - size, cz + size];
+        const v1 = [cx + size, cy - size, cz + size];
+        const v2 = [cx + size, cy + size, cz + size];
+        const v3 = [cx - size, cy + size, cz + size];
+        const v = [v0, v1, v2, v3];
+        const n = [0.0, 0.0, 1.0];
+        pushSquare(o, v, n, t);
     }
 
-    // Back
-    {
-        o.positions.push(
-            -1.0, -1.0, -1.0,
-            -1.0, 1.0, -1.0,
-            1.0, 1.0, -1.0,
-            1.0, -1.0, -1.0,
-        );
-        o.posCount += 4;
-        o.vertexNormals.push(
-            0.0, 0.0, -1.0,
-            0.0, 0.0, -1.0,
-            0.0, 0.0, -1.0,
-            0.0, 0.0, -1.0,
-        );
-        o.textureCoordinates.push(
-            1.0, 0.0,
-            0.0, 0.0,
-            0.0, 1.0,
-            1.0, 1.0,
-        );
-        var ip = o.posCount - 4;
-        o.indices.push(
-            ip + 0, ip + 1, ip + 2,
-            ip + 0, ip + 2, ip + 3,
-        );
-        o.faceCount += 2;
+    { // Back
+        const v0 = [cx - size, cy - size, cz - size];
+        const v1 = [cx - size, cy + size, cz - size];
+        const v2 = [cx + size, cy + size, cz - size];
+        const v3 = [cx + size, cy - size, cz - size];
+        const v = [v0, v1, v2, v3];
+        const n = [0.0, 0.0, -1.0];
+        pushSquare(o, v, n, t);
     }
 
-    // Top
-    {
-        o.positions.push(
-            -1.0, 1.0, -1.0,
-            -1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0,
-            1.0, 1.0, -1.0,
-        );
-        o.posCount += 4;
-        o.vertexNormals.push(
-            0.0, 1.0, 0.0,
-            0.0, 1.0, 0.0,
-            0.0, 1.0, 0.0,
-            0.0, 1.0, 0.0,
-        );
-        o.textureCoordinates.push(
-            1.0, 0.0,
-            0.0, 0.0,
-            0.0, 1.0,
-            1.0, 1.0,
-        );
-        var ip = o.posCount - 4;
-        o.indices.push(
-            ip + 0, ip + 1, ip + 2,
-            ip + 0, ip + 2, ip + 3,
-        );
-        o.faceCount += 2;
+    { // Top
+        const v0 = [cx - size, cy + size, cz - size];
+        const v1 = [cx - size, cy + size, cz + size];
+        const v2 = [cx + size, cy + size, cz + size];
+        const v3 = [cx + size, cy + size, cz - size];
+        const v = [v0, v1, v2, v3];
+        const n = [0.0, 1.0, 0.0];
+        pushSquare(o, v, n, t);
     }
 
-    // Bottom
-    {
-        o.positions.push(
-            -1.0, -1.0, -1.0,
-            1.0, -1.0, -1.0,
-            1.0, -1.0, 1.0,
-            -1.0, -1.0, 1.0,
-        );
-        o.posCount += 4;
-        o.vertexNormals.push(
-            0.0, -1.0, 0.0,
-            0.0, -1.0, 0.0,
-            0.0, -1.0, 0.0,
-            0.0, -1.0, 0.0,
-        )
-        o.textureCoordinates.push(
-            1.0, 0.0,
-            0.0, 0.0,
-            0.0, 1.0,
-            1.0, 1.0,
-        );
-        var ip = o.posCount - 4;
-        o.indices.push(
-            ip + 0, ip + 1, ip + 2,
-            ip + 0, ip + 2, ip + 3,
-        );
-        o.faceCount += 2;
+    { // Bottom
+        const v0 = [cx - size, cy - size, cz - size];
+        const v1 = [cx + size, cy - size, cz - size];
+        const v2 = [cx + size, cy - size, cz + size];
+        const v3 = [cx - size, cy - size, cz + size];
+        const v = [v0, v1, v2, v3];
+        const n = [0.0, -1.0, 0.0];
+        pushSquare(o, v, n, t);
     }
 
-    // Right
-    {
-        o.positions.push(
-            1.0, -1.0, -1.0,
-            1.0, 1.0, -1.0,
-            1.0, 1.0, 1.0,
-            1.0, -1.0, 1.0,
-        );
-        o.posCount += 4;
-        o.vertexNormals.push(
-            1.0, 0.0, 0.0,
-            1.0, 0.0, 0.0,
-            1.0, 0.0, 0.0,
-            1.0, 0.0, 0.0,
-        );
-        o.textureCoordinates.push(
-            1.0, 0.0,
-            0.0, 0.0,
-            0.0, 1.0,
-            1.0, 1.0,
-        );
-        var ip = o.posCount - 4;
-        o.indices.push(
-            ip + 0, ip + 1, ip + 2,
-            ip + 0, ip + 2, ip + 3,
-        );
-        o.faceCount += 2;
+    { // Right
+        const v0 = [cx + size, cy - size, cz - size];
+        const v1 = [cx + size, cy + size, cz - size];
+        const v2 = [cx + size, cy + size, cz + size];
+        const v3 = [cx + size, cy - size, cz + size];
+        const v = [v0, v1, v2, v3];
+        const n = [1.0, 0.0, 0.0];
+        pushSquare(o, v, n, t);
     }
 
-    // Left
-    {
-        o.positions.push(
-            -1.0, -1.0, -1.0,
-            -1.0, -1.0, 1.0,
-            -1.0, 1.0, 1.0,
-            -1.0, 1.0, -1.0,
-        );
-        o.posCount += 4;
-        o.vertexNormals.push(
-            -1.0, 0.0, 0.0,
-            -1.0, 0.0, 0.0,
-            -1.0, 0.0, 0.0,
-            -1.0, 0.0, 0.0,
-        );
-        o.textureCoordinates.push(
-            1.0, 0.0,
-            0.0, 0.0,
-            0.0, 1.0,
-            1.0, 1.0,
-        );
-        var ip = o.posCount - 4;
-        o.indices.push(
-            ip + 0, ip + 1, ip + 2,
-            ip + 0, ip + 2, ip + 3,
-        );
-        o.faceCount += 2;
+    { // Left
+        const v0 = [cx - size, cy - size, cz - size];
+        const v1 = [cx - size, cy - size, cz + size];
+        const v2 = [cx - size, cy + size, cz + size];
+        const v3 = [cx - size, cy + size, cz - size];
+        const v = [v0, v1, v2, v3];
+        const n = [-1.0, 0.0, 0.0];
+        pushSquare(o, v, n, t);
     }
+}
+
+function pushSquare(
+    o,     // thang
+	v,     // positions
+	n,     // normal
+	t      // texture coordinate
+) {
+    var ip = o.positions.length / 3;
+    pushVert2(o, v[0], n, t[0]);
+    pushVert2(o, v[1], n, t[1]);
+    pushVert2(o, v[2], n, t[2]);
+    pushVert2(o, v[3], n, t[3]);
+    o.indices.push(
+        ip + 0, ip + 1, ip + 2,
+        ip + 0, ip + 2, ip + 3,
+    );
+    o.faceCount += 2;
+}
+
+function pushVert2(
+    o,      // thang
+	v,      // position
+	n,      // normal
+	t       // texture coordinate
+) {
+	o.positions.push(v[0], v[1], v[2]);
+	o.vertexNormals.push(n[0], n[1], n[2]);
+	o.textureCoordinates.push(t[0], t[1]);
 }
 
 function initBuffers(gl) {
@@ -487,7 +412,7 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   const modelViewMatrix = mat4.create();
 
   // move drawing position
-  var distance = -5.5 + (2.5 * Math.sin(cubeRotation * 0.05));
+  var distance = -6.5 + (1.5 * Math.sin(cubeRotation * 0.15));
   mat4.translate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to translate
@@ -496,13 +421,13 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   mat4.rotate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to rotate
-    cubeRotation * 0.045, // amount to rotate in radians
+    cubeRotation * 0.45, // amount to rotate in radians
     [0, 0, 1]
   ); // axis to rotate around (Z)
   mat4.rotate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to rotate
-    cubeRotation * 0.035, // amount to rotate in radians
+    cubeRotation * 0.35, // amount to rotate in radians
     [0, 1, 0]
   ); // axis to rotate around (X)
 
