@@ -1,3 +1,5 @@
+const Geo = Geometry;
+
 function start() {
     thing = new Thing();
     frame = 0;
@@ -8,7 +10,7 @@ function update() {
     var A = thing.points.A;
     var angle = 0.02 * frame;
     A.set(Math.sin(angle) * 2, -Math.cos(angle));
-
+    setContent('svgPlaceholder1', thing.outer());
     frame++;
 }
 
