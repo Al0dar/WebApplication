@@ -98,7 +98,7 @@ function main() {
   //const video = setupVideo("/static/media/vid/VX2 by Spectrals (Revision Online 2020 PC Demo Compo).mp4");
   //const video = setupVideo("/static/media/vid/Rupture by ASD (FullHD 1080p demoscene demo 2009).mp4");
   //const video = setupVideo("/static/media/vid/Return by Rebels & Calodox (1st @ Evoke 2022 PC Demo Compo).mp4");
-  const video = setupVideo("/static/media/vid/VX2 by Spectrals.mp4");
+  const video = setupVideo("/static/media/vid/Crystal Skies - Nigel Stanford.mp4");
   //const video = setupVideo("/static/media/vid/Gorillaz - Feel Good Inc.mp4");
   //const video = setupVideo("/static/media/vid/isolated.mp4");
 
@@ -412,7 +412,7 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   const modelViewMatrix = mat4.create();
 
   // move drawing position
-  var distance = -6.5 + (1.5 * Math.sin(cubeRotation * 0.15));
+  var distance = -6.5 + (1.5 * Math.sin(cubeRotation * 0.015));
   mat4.translate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to translate
@@ -421,13 +421,13 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   mat4.rotate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to rotate
-    cubeRotation * 0.45, // amount to rotate in radians
+    cubeRotation * 0.045, // amount to rotate in radians
     [0, 0, 1]
   ); // axis to rotate around (Z)
   mat4.rotate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to rotate
-    cubeRotation * 0.35, // amount to rotate in radians
+    cubeRotation * 0.035, // amount to rotate in radians
     [0, 1, 0]
   ); // axis to rotate around (X)
 
