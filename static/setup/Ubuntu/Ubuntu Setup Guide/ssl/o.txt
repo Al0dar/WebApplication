@@ -4,3 +4,6 @@ generate Certificate Signing Request
 prove domain ownership (of springs.network) to DigiCert
     make fileauth.txt available at this URL
         http://springs.network/.well-known/pki-validation/fileauth.txt
+
+import into a new keystore
+    https://www.tabnine.com/code/java/methods/java.security.KeyStore/setCertificateEntry
